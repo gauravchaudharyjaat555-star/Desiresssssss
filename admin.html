@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preety Pop | Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f4f4; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .order-id { color: #e75480; font-weight: bold; }
+        .status { padding: 5px 10px; border-radius: 5px; background: #eee; font-size: 12px; }
+        .btn { padding: 5px 10px; background: #333; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Order Manager 📦</h2>
+        <button class="btn" onclick="location.reload()">Refresh</button>
+    </div>
+    <div id="orders-list">Loading orders...</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
+          authDomain: "preety-pop.firebaseapp.com",
+          projectId: "preety-pop",
+          storageBucket: "preety-pop.firebasestorage.app",
+          messagingSenderId: "647940072812",
+          appId: "1:647940072812:web:0da839a2056d826188ff49",
+          measurementId: "G-1V2Y2JENCK"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchOrders() {
+            const list = document.getElementById('orders-list');
+            list.innerHTML = "Loading...";
+            
+            try {
+                const q = query(collection(db, "orders"), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                list.innerHTML = "";
+                if(querySnapshot.empty) { list.innerHTML = "No orders yet."; return; }
+
+                querySnapshot.forEach((doc) => {
+                    const o = doc.data();
+                    let itemsHtml = o.items.map(i => `<li>${i.name} (x${i.qty})</li>`).join('');
+                    
+                    let html = `
+                        <div class="card">
+                            <div style="display:flex; justify-content:space-between;">
+                                <span class="order-id">${o.orderId}</span>
+                                <span class="status">${o.status}</span>
+                            </div>
+                            <p><strong>Name:</strong> ${o.name} | <strong>Phone:</strong> ${o.mobile}</p>
+                            <p><strong>Total:</strong> ₹${o.totalAmount} | <strong>Mode:</strong> ${o.paymentMethod}</p>
+                            <p><strong>Address:</strong> ${o.addr1}, ${o.city} - ${o.pincode}</p>
+                            <hr>
+                            <ul>${itemsHtml}</ul>
+                        </div>
+                    `;
+                    list.innerHTML += html;
+                });
+            } catch(e) {
+                list.innerHTML = "Error: " + e.message;
+            }
+        }
+        fetchOrders();
+    </script>
+</body>
+</html>
