@@ -14,6 +14,8 @@
         .menu-btn {font-size:24px; cursor:pointer; color:#333; background: #fff0f5; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--d-pink);}
         header h1{font-family:'Playfair Display';font-size:22px;color:var(--d-pink);margin:0;}
         .cart-icon{background: linear-gradient(45deg, #ff9a9e, #e75480); color:white;padding:8px 15px;border-radius:20px;font-size:14px;cursor:pointer; font-weight:600; box-shadow: 0 4px 10px rgba(231, 84, 128, 0.3);}
+        
+        /* SIDEBAR */
         .sidebar-overlay {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1500; display:none; opacity:0; transition:0.3s;}
         .sidebar-overlay.active {display:block; opacity:1;}
         .sidebar {position:fixed; top:0; left:-300px; width:var(--sidebar-w); height:100%; background:white; z-index:1600; transition:0.3s; box-shadow: 2px 0 10px rgba(0,0,0,0.1); display:flex; flex-direction:column; border-top-right-radius: 20px; border-bottom-right-radius: 20px;}
@@ -23,8 +25,9 @@
         .sidebar-menu {padding:20px; flex:1; overflow-y:auto;}
         .menu-item {padding:12px 15px; margin-bottom: 5px; border-radius: 12px; color:#555; text-decoration:none; font-weight:500; font-size:15px; display:flex; align-items:center; gap:15px; transition:0.2s;}
         .menu-item:hover {background:#fff0f5; color:var(--d-pink); transform: translateX(5px);}
+        
+        /* SOCIAL & GENERAL */
         .social-menu {margin-top:15px; padding-top:15px; border-top: 1px dashed #ffd1dc;}
-        .social-title {font-family:'Playfair Display'; font-size:14px; color:#888; margin-bottom:10px; display:block; text-align: center;}
         .social-btn-styled {display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; border: 1px solid transparent;}
         .social-btn-styled:active {transform: scale(0.95);}
         .insta-style { background: linear-gradient(to right, #fff0f5, #fad0c4); color: #c13584; border-color: #ffdde1; }
@@ -32,6 +35,8 @@
         .hero{background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');background-size:cover;background-position:center;color:white;text-align:center;padding:80px 20px;margin-bottom:20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
         .hero h2{font-family:'Playfair Display';font-size:36px;margin:0 0 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
         .hero-btn{background:white;color:var(--d-pink);padding:10px 25px;border-radius:30px;text-decoration:none;font-weight:bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
+        
+        /* CATEGORY & PRODUCTS */
         .category-scroll {display:flex; overflow-x:auto; gap:12px; padding:10px 20px; margin-bottom:10px; scrollbar-width: none; justify-content: start;}
         .category-scroll::-webkit-scrollbar {display: none;}
         .cat-btn {white-space:nowrap; padding: 10px 22px; border: none; background: white; color: #888; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;}
@@ -55,12 +60,19 @@
         .btn-outline{background:white;border:1px solid var(--d-pink);color:var(--d-pink);margin-top:8px;}
         .btn-secondary{background:#f0f0f0; color:#555; margin-top:8px;}
         footer {background:white; padding:30px 20px; text-align:center; margin-top:50px; border-top:1px solid #eee; font-size:14px; color:#666;}
-        .wa-float{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;z-index:1000;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
-        .toast{position:fixed;bottom:80px;right:20px;background:var(--toast-bg);color:white;padding:12px 20px;border-radius:12px;opacity:0;transition:0.4s;z-index:3000;}
-        .toast.show{opacity:1;}
-        .form-input{width:100%;padding:14px;margin:8px 0 15px 0;border-radius:10px;border:1px solid #eee;background:#fcfcfc; box-sizing:border-box;font-family: inherit; font-size:15px;}
-        .half-input-group{display:flex;gap:10px;}
-        .half-input-group .form-input{width:50%;}
+        
+        /* WHATSAPP FLOAT FIXED */
+        .wa-float {
+            position: fixed; bottom: 20px; right: 20px; 
+            background: #25d366; color: white; width: 60px; height: 60px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 30px; text-decoration: none; z-index: 3000; 
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(37,211,102,0.7);} 70% {box-shadow: 0 0 0 10px rgba(37,211,102,0);} 100% {box-shadow: 0 0 0 0 rgba(37,211,102,0);} }
+
+        /* MODALS & ALERTS */
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;overflow-y:auto;backdrop-filter: blur(5px);}
         .modal-content{background:white;width:90%;max-width:500px;margin:10% auto;padding:30px;border-radius:30px;text-align:center;box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 2px solid #fff0f5;}
         .modal-content h2{font-family: 'Playfair Display'; margin-bottom: 20px; color: var(--d-pink); font-size: 28px;}
@@ -73,20 +85,63 @@
         .qty-btn {background: white; border: none; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; font-size: 18px; color: var(--d-pink); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
         .qty-val {margin: 0 10px; font-weight: 600; font-size: 15px;}
         .remove-btn {color: #ff4444; font-size: 18px; cursor: pointer; opacity: 0.7;}
+        
+        .order-card {background: #fffafb; padding: 15px; border-radius: 15px; border: 1px solid #ffeef2; margin-bottom: 15px; text-align: left; transition:0.2s;}
+        .order-card:hover {transform:translateY(-3px); box-shadow:0 5px 15px rgba(0,0,0,0.05);}
+        .oc-header {display:flex; justify-content:space-between; font-weight:bold; color:var(--d-pink); margin-bottom:5px;}
+        .oc-date {font-size:12px; color:#888;}
+        .oc-total {font-weight:700; color:#333; font-size:16px; margin-top:5px;}
+        .oc-status {font-size:12px; background:#eaffea; color:green; padding:3px 8px; border-radius:8px;}
+        
+        .pay-grid {display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px;}
+        .pay-btn {display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border: 1px solid #eee; border-radius: 15px; background: white; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); text-align: left; font-weight: 600; color: #444; text-decoration: none;}
+        .pay-btn:hover { border-color: var(--d-pink); transform: translateY(-3px); }
+        .pay-upi { border-left: 5px solid #6739b7; } 
+        .pay-cod { border-left: 5px solid #4CAF50; }
+        .pay-wa { border-left: 5px solid #25d366; }
+        .success-icon {font-size: 60px; color: #4CAF50; animation: popUp 0.5s ease-out;}
+        @keyframes popUp { 0% {transform: scale(0);} 80% {transform: scale(1.1);} 100% {transform: scale(1);} }
+        .success-details {text-align: left; background: #fffafb; padding: 15px; border-radius: 15px; margin: 20px 0; border: 1px dashed #e75480;}
+        .bill-row {display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; color: #555;}
+        .bill-total {border-top: 1px dashed #ccc; padding-top: 8px; margin-top: 8px; font-weight: 700; color: #333; font-size: 16px;}
+        
         .cart-summary {background: #fffafb; padding: 20px; border-radius: 15px; margin-top: 20px; text-align: right;}
         .summary-row {display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 15px;}
         .total-row {display: flex; justify-content: space-between; margin-top: 10px; font-size: 20px; font-weight: 700; color: #333; border-top: 2px dashed #ffc0cb; padding-top: 10px;}
-        .reviews-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px;}
-        .review-card {background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left;}
-        .review-stars {color: #FFD700; margin-bottom: 5px;}
-        .review-name {font-weight: 700; color: var(--d-pink); margin-top: 10px; display: block;}
+        
+        .paid-tag {text-align: center; background: #eaffea; color: green; font-weight: bold; padding: 5px; border-radius: 8px; margin-top: 10px; font-size: 13px;}
+        .cod-tag {text-align: center; background: #fff8e1; color: #ff9800; font-weight: bold; padding: 5px; border-radius: 8px; margin-top: 10px; font-size: 13px;}
         .upi-box {background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px dashed var(--d-pink); margin: 15px 0;}
         .upi-id {font-weight: bold; font-size: 18px; color: #333; display: block; margin: 10px 0; user-select: all;}
+        .form-input{width:100%;padding:14px;margin:8px 0 15px 0;border-radius:10px;border:1px solid #eee;background:#fcfcfc; box-sizing:border-box;font-family: inherit; font-size:15px;}
+        .half-input-group{display:flex;gap:10px;}
+        .half-input-group .form-input{width:50%;}
+        .toast{position:fixed;bottom:80px;right:20px;background:var(--toast-bg);color:white;padding:12px 20px;border-radius:12px;opacity:0;transition:0.4s;z-index:3000;}
+        .toast.show{opacity:1;}
     </style>
 </head>
 <body>
 
-    <a href="#" class="wa-float" onclick="alert('Need Help? Chat with us on WhatsApp!')">💬</a>
+    <a href="https://wa.me/918679289327" class="wa-float">💬</a>
+
+    <div class="modal" id="customAlertBox">
+        <div class="modal-content" style="max-width:320px; padding:25px;">
+            <h3 style="color:var(--d-pink); font-size:20px;">Notification 🌸</h3>
+            <p id="customAlertMsg" style="color:#555; margin:15px 0;">Message</p>
+            <button class="btn" onclick="document.getElementById('customAlertBox').style.display='none'">Okay</button>
+        </div>
+    </div>
+
+    <div class="modal" id="customConfirmBox">
+        <div class="modal-content" style="max-width:320px; padding:25px;">
+            <h3 style="color:var(--d-pink); font-size:20px;">Just Checking... 🤔</h3>
+            <p id="customConfirmMsg" style="color:#555; margin:15px 0;">Are you sure?</p>
+            <div class="half-input-group">
+                <button class="btn" id="confirmYesBtn">Yes ✅</button>
+                <button class="btn btn-outline" onclick="document.getElementById('customConfirmBox').style.display='none'">Cancel ❌</button>
+            </div>
+        </div>
+    </div>
 
     <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
     <div class="sidebar" id="sidebar">
@@ -97,17 +152,14 @@
         <div class="sidebar-menu">
             <a onclick="closeSidebar(); showProfile()" class="menu-item" style="background: #fffafb; color: var(--d-pink);"><span style="font-size:20px;">👸</span> My Profile</a>
             <a onclick="closeSidebar(); checkLoginAndRedirect('cart')" class="menu-item"><span style="font-size:20px;">🛍️</span> My Shopping Bag</a>
+            <a onclick="closeSidebar(); showMyOrders()" class="menu-item"><span style="font-size:20px;">📦</span> My Orders</a>
             <a onclick="closeSidebar(); openTrackModal()" class="menu-item"><span style="font-size:20px;">🚚</span> Track Order</a>
             <a href="https://wa.me/918679289327" class="menu-item"><span style="font-size:20px;">💬</span> Help & Support</a>
             
             <div class="social-menu">
                 <span class="social-title">✨ Follow Our Journey ✨</span>
-                <a href="https://www.instagram.com/preety_pop_desires?igsh=MTI5N3hxbHd3bmVoaA==" target="_blank" class="social-btn-styled insta-style">
-                    📸 Join Insta Fam 💖
-                </a>
-                <a href="https://youtube.com/@preetypopdesires?si=a9olNojwQk8ZHl8a" target="_blank" class="social-btn-styled yt-style">
-                    📺 Watch Vlogs 🎀
-                </a>
+                <a href="https://www.instagram.com/preety_pop_desires?igsh=MTI5N3hxbHd3bmVoaA==" target="_blank" class="social-btn-styled insta-style">📸 Join Insta Fam 💖</a>
+                <a href="https://youtube.com/@preetypopdesires?si=a9olNojwQk8ZHl8a" target="_blank" class="social-btn-styled yt-style">📺 Watch Vlogs 🎀</a>
             </div>
         </div>
     </div>
@@ -286,6 +338,32 @@
         </div>
     </div>
 
+    <div class="modal" id="myOrdersModal">
+        <div class="modal-content">
+            <h2>My Orders 📦</h2>
+            <div id="ordersContainer" style="max-height: 400px; overflow-y: auto;">
+                <p>Loading your orders...</p>
+            </div>
+            <button class="btn btn-secondary" onclick="document.getElementById('myOrdersModal').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="orderDetailsModal">
+        <div class="modal-content" style="text-align: left;">
+            <h2 style="text-align: center;">Order Details 📄</h2>
+            <p style="text-align:center; color:var(--d-pink); font-weight:bold; font-size:18px;" id="odId"></p>
+            <hr style="border:0; border-top:1px dashed #ddd; margin:10px 0;">
+            <div id="odItems"></div>
+            <hr style="border:0; border-top:1px dashed #ddd; margin:10px 0;">
+            <p><strong>Total Paid:</strong> <span id="odTotal"></span></p>
+            <p><strong>Payment Mode:</strong> <span id="odMode"></span></p>
+            <p><strong>Status:</strong> <span id="odStatus" style="background:#eaffea; color:green; padding:2px 6px; border-radius:4px;"></span></p>
+            <p style="font-size:12px; color:#888; margin-top:5px;">Date: <span id="odDate"></span></p>
+            <button class="btn" id="odTrackBtn" style="margin-top:20px;">🚚 Track This Order</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('orderDetailsModal').style.display='none'">Close</button>
+        </div>
+    </div>
+
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <h2>Your Shopping Bag 🛍️</h2>
@@ -320,38 +398,62 @@
                     <input type="text" class="form-input" placeholder="State" id="state" required>
                     <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
                 </div>
-                <p style="text-align:left;font-size:14px;font-weight:600;margin-top:15px;">Payment Method:</p>
-                <label style="display:block;text-align:left;"><input type="radio" name="payment" value="UPI" checked> Pay via UPI (Recommended)</label>
-                <label style="display:block;text-align:left;margin-bottom:15px;"><input type="radio" name="payment" value="WhatsApp Order"> Order via WhatsApp</label>
-                <button type="submit" class="btn">Proceed to Payment</button>
+                <button type="submit" class="btn">Select Payment Method ➝</button>
                 <button type="button" onclick="document.getElementById('checkoutModal').style.display='none'" style="margin-top:10px;background:none;border:none;cursor:pointer;">Cancel</button>
             </form>
         </div>
     </div>
 
-    <div class="modal" id="upiModal">
+    <div class="modal" id="paymentSelectionModal">
         <div class="modal-content">
-            <h2>Secure Payment 🔒</h2>
-            <div id="upiStep1">
-                <p>Send payment to UPI ID:</p>
-                <div class="upi-box"><span class="upi-id">preetypop8180@boi</span></div>
-                <p>Amount: <b id="payAmount" style="font-size:20px;">₹0</b></p>
-                <button class="btn" style="background:#25d366; margin-bottom:10px;" onclick="tryOpenUPI()">Pay Now (App)</button>
-                <p>Did you complete the payment?</p>
-                <div class="half-input-group">
-                    <button class="btn" onclick="showTxnInput()">Yes, Paid ✅</button>
-                    <button class="btn btn-outline" onclick="payNotDone()">No ❌</button>
-                </div>
-                <button class="btn btn-secondary" onclick="goBackToCheckout()" style="margin-top:15px; background:#eee; color:#555;">⬅ Back / Cancel</button>
+            <h2>Select Payment Method 💳</h2>
+            <div style="background:#f9f9f9; padding:10px; border-radius:10px; margin-bottom:15px;">
+                <div style="display:flex; justify-content:space-between; font-size:14px; color:#555;"><span>Cart Total:</span> <span id="paySelectSubtotal">₹0</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; color:green;"><span>Delivery:</span> <span>Free</span></div>
+                <div id="codFeeRow" style="display:flex; justify-content:space-between; font-size:14px; color:#e75480; display:none;"><span>Handling Fee:</span> <span>+ ₹21</span></div>
+                <hr style="margin:5px 0; border:0; border-top:1px dashed #ccc;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; font-size:18px;"><span>Total:</span> <span id="paySelectTotal">₹0</span></div>
             </div>
-            <div id="upiStep2" style="display:none;">
-                <h3>Payment Verificaton</h3>
-                <p>Enter UPI Reference/Transaction ID:</p>
-                <input type="text" class="form-input" id="txnId" placeholder="e.g. 4281xxxxxx">
-                <button class="btn" onclick="saveOrderToFirebase('UPI')">Submit Order</button>
-                <button class="btn btn-outline" onclick="saveOrderToFirebase('UPI')">Skip (Send Screenshot Later)</button>
-                <button class="btn btn-secondary" onclick="goBackToCheckout()" style="margin-top:15px; background:#eee; color:#555;">⬅ Back / Cancel</button>
+            
+            <div class="pay-grid">
+                <div class="pay-btn pay-upi" onclick="initiatePayment('Google Pay')">Google Pay <span>➔</span></div>
+                <div class="pay-btn pay-upi" onclick="initiatePayment('PhonePe')">PhonePe <span>➔</span></div>
+                <div class="pay-btn pay-upi" onclick="initiatePayment('Paytm')">Paytm <span>➔</span></div>
+                <div class="pay-btn pay-cod" onclick="initiatePayment('Cash on Delivery')">Cash on Delivery 🚚 <span>➔</span></div>
+                <div class="pay-btn pay-wa" onclick="initiatePayment('WhatsApp Order')">Order via WhatsApp 💬 <span>➔</span></div>
             </div>
+            
+            <button class="btn btn-secondary" onclick="document.getElementById('paymentSelectionModal').style.display='none'; document.getElementById('checkoutModal').style.display='block';" style="margin-top:20px;">⬅ Back to Details</button>
+        </div>
+    </div>
+
+    <div class="modal" id="upiConfirmModal">
+        <div class="modal-content">
+            <h2>Verify Payment 🔒</h2>
+            <p>Complete payment on your app.</p>
+            <p>Paying to: <strong>preetypop8180@boi</strong></p>
+            <div class="half-input-group" style="margin-top:20px;">
+                <button class="btn" onclick="saveOrderToFirebase('UPI (Paid)')">Yes, Paid ✅</button>
+                <button class="btn btn-outline" onclick="payNotDone()">No ❌</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="orderSuccessModal">
+        <div class="modal-content" style="text-align: center;">
+            <div class="success-icon">✅</div>
+            <h2>Woohoo! Order Placed! 🎉</h2>
+            <p>Order ID: <strong id="successOrderId"></strong></p>
+            
+            <div class="success-details">
+                <div class="bill-row"><span>Item Total</span> <span id="billSubtotal"></span></div>
+                <div class="bill-row"><span>Delivery</span> <span style="color:green;">Free</span></div>
+                <div class="bill-row"><span>Extra Fee</span> <span id="billCodFee"></span></div>
+                <div class="bill-row bill-total"><span>Grand Total</span> <span id="billTotal"></span></div>
+            </div>
+            <div id="paymentStatusTag"></div>
+            <br>
+            <button class="btn" onclick="closeSuccessModal()">Continue Shopping 🛍️</button>
         </div>
     </div>
 
@@ -393,9 +495,9 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // --- FIREBASE CONNECTED HERE ---
+        // --- TERA FIREBASE CONFIG (ADDED FOR YOU) ---
         const firebaseConfig = {
           apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
           authDomain: "preety-pop.firebaseapp.com",
@@ -411,9 +513,11 @@
             app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             console.log("Firebase Connected");
-        } catch(e) { console.error("Firebase config missing"); }
+        } catch(e) { 
+            console.error("Firebase config missing");
+            showCustomAlert("Please add Firebase Config!");
+        }
 
-        // CONFIG
         const myWhatsAppNumber = "918679289327";
         const myUpiId = "preetypop8180@boi";
         let cart = [], cartTemp = [], orderData = {}, userProfile = null;
@@ -442,13 +546,29 @@
         window.changeQty = changeQty;
         window.removeItem = removeItem;
         window.openCheckout = openCheckout;
-        window.tryOpenUPI = tryOpenUPI;
         window.payNotDone = payNotDone;
         window.showTxnInput = showTxnInput;
         window.goBackToCheckout = goBackToCheckout;
         window.trackOrder = trackOrder;
         window.openTrackModal = openTrackModal;
         window.saveOrderToFirebase = saveOrderToFirebase;
+        window.closeSuccessModal = closeSuccessModal;
+        window.initiatePayment = initiatePayment;
+        window.showMyOrders = showMyOrders;
+
+        function showCustomAlert(msg) {
+            document.getElementById('customAlertMsg').innerText = msg;
+            document.getElementById('customAlertBox').style.display = 'block';
+        }
+        function showCustomConfirm(msg, callback) {
+            document.getElementById('customConfirmMsg').innerText = msg;
+            const btn = document.getElementById('confirmYesBtn');
+            btn.onclick = function() {
+                document.getElementById('customConfirmBox').style.display = 'none';
+                callback();
+            };
+            document.getElementById('customConfirmBox').style.display = 'block';
+        }
 
         function filterCategory(cat, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -469,16 +589,16 @@
         function performLogin(){
             const name = document.getElementById('loginName').value;
             const mobile = document.getElementById('loginPhone').value;
-            if(!name || !mobile){ alert("Please fill details"); return; }
+            if(!name || !mobile){ showCustomAlert("Please fill details"); return; }
             userProfile = { name: name, mobile: mobile, email: "", addr1: "", city: "", state: "", pincode: "" };
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('loginModal').style.display = 'none';
             updateMenuUser();
-            showToast("Logged In Successfully");
+            showCustomAlert("Logged In Successfully");
             if(cart.length > 0) openCartModal();
         }
         function showProfile(){
-            if(!userProfile) { alert("Please Login first."); return; }
+            if(!userProfile) { showCustomAlert("Please Login first."); return; }
             document.getElementById('profNameInput').value = userProfile.name;
             document.getElementById('profMobileInput').value = userProfile.mobile;
             document.getElementById('profEmailInput').value = userProfile.email || "";
@@ -500,17 +620,18 @@
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             updateMenuUser();
             document.getElementById('profileModal').style.display = 'none';
-            showToast("Profile Updated ✅");
+            showCustomAlert("Profile Updated ✅");
         }
-        function logout(){ localStorage.removeItem('userProfile'); userProfile = null; updateMenuUser(); document.getElementById('profileModal').style.display = 'none'; showToast("Logged Out"); }
+        function logout(){ localStorage.removeItem('userProfile'); userProfile = null; updateMenuUser(); document.getElementById('profileModal').style.display = 'none'; showCustomAlert("Logged Out"); }
 
-        function showToast(msg){ const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => { t.classList.remove('show'); }, 2000); }
         function updateCartCount(){ document.getElementById('cCount').innerText = cart.length; localStorage.setItem('cart', JSON.stringify(cart)); }
         function addCart(name, price){
             let existing = cart.find(p => p.name === name);
             if(existing) existing.qty += 1; else cart.push({name: name, price: price, qty: 1});
             updateCartCount(); showToast(name + ' added');
         }
+        function showToast(msg){ const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => { t.classList.remove('show'); }, 2000); }
+
         function openCartModal(){
             const table = document.getElementById('cartItemsTable');
             table.innerHTML = ''; let total = 0;
@@ -536,7 +657,7 @@
             if(!userProfile){ checkLoginAndRedirect('checkout'); return; }
             cartTemp = [];
             if(type === 'single') cartTemp.push({name: name, price: price, qty: 1});
-            else if(type === 'cart'){ if(cart.length === 0) { showToast("Cart is empty!"); return; } cartTemp = [...cart]; }
+            else if(type === 'cart'){ if(cart.length === 0) { showCustomAlert("Cart is empty!"); return; } cartTemp = [...cart]; }
             document.getElementById('name').value = userProfile.name || "";
             document.getElementById('mobile').value = userProfile.mobile || "";
             document.getElementById('email').value = userProfile.email || "";
@@ -560,46 +681,150 @@
                 state: document.getElementById('state').value, pincode: document.getElementById('pincode').value, 
                 items: [...cartTemp], timestamp: new Date()
             };
-            let paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
             let total = 0; orderData.items.forEach(item => total += item.price * item.qty); orderData.totalAmount = total;
-
-            if(paymentMethod === 'UPI'){
-                document.getElementById('checkoutModal').style.display = 'none';
-                document.getElementById('upiStep1').style.display = 'block'; document.getElementById('upiStep2').style.display = 'none';
-                document.getElementById('payAmount').innerText = '₹' + total; document.getElementById('upiModal').style.display = 'block';
-            } else { saveOrderToFirebase('WhatsApp Order'); }
+            
+            document.getElementById('paySelectSubtotal').innerText = '₹' + total;
+            document.getElementById('paySelectTotal').innerText = '₹' + total;
+            document.getElementById('codFeeRow').style.display = 'none'; 
+            
+            document.getElementById('checkoutModal').style.display = 'none';
+            document.getElementById('paymentSelectionModal').style.display = 'block';
         });
 
-        function tryOpenUPI(){ let url = `upi://pay?pa=${myUpiId}&pn=PreetyPop&am=${orderData.totalAmount}&cu=INR`; window.location.href = url; }
-        function payNotDone(){ if(confirm("Payment failed? Click OK to place order anyway.")){ saveOrderToFirebase('WhatsApp Order (Pay Later)'); } }
-        function showTxnInput(){ document.getElementById('upiStep1').style.display = 'none'; document.getElementById('upiStep2').style.display = 'block'; }
-        function goBackToCheckout(){ document.getElementById('upiModal').style.display = 'none'; document.getElementById('checkoutModal').style.display = 'block'; }
-
-        async function saveOrderToFirebase(paymentMode){
-            try {
-                let txnId = document.getElementById('txnId').value || "Not Provided";
-                orderData.paymentMethod = paymentMode;
-                orderData.txnId = txnId;
-                orderData.status = "Pending";
-
-                if(!db) { alert("Database connect nahi hua. Config check kar."); return; }
-
-                await addDoc(collection(db, "orders"), orderData);
-
-                document.getElementById('checkoutModal').style.display = 'none';
-                document.getElementById('upiModal').style.display = 'none';
-                alert("Order Placed Successfully! ✅\nYour Order ID: " + orderData.orderId);
-                cart = [];
-                updateCartCount();
-            } catch(err) {
-                console.error("Error adding document: ", err);
-                alert("Error placing order: " + err.message);
+        function initiatePayment(method){
+            let subtotal = 0; 
+            orderData.items.forEach(item => subtotal += item.price * item.qty);
+            
+            if(method === 'Cash on Delivery' || method === 'WhatsApp Order'){
+                let fee = 21;
+                let grandTotal = subtotal + fee;
+                let methodMsg = (method === 'WhatsApp Order') ? 'WhatsApp Order' : 'Cash on Delivery';
+                
+                showCustomConfirm(`${methodMsg} charges ₹21 extra.\nTotal: ₹${grandTotal}\nConfirm?`, function() {
+                    orderData.codFee = 21;
+                    orderData.totalAmount = grandTotal;
+                    saveOrderToFirebase(method);
+                });
+            } else {
+                orderData.codFee = 0;
+                orderData.totalAmount = subtotal;
+                document.getElementById('paymentSelectionModal').style.display = 'none';
+                let url = `upi://pay?pa=${myUpiId}&pn=PreetyPop&am=${orderData.totalAmount}&cu=INR`;
+                window.location.href = url;
+                document.getElementById('upiConfirmModal').style.display = 'block';
             }
         }
 
+        function payNotDone(){ 
+            document.getElementById('upiConfirmModal').style.display = 'none';
+            showCustomConfirm("Payment failed? Place order anyway?", function() {
+                saveOrderToFirebase('UPI (Failed/Pending)');
+            });
+        }
+        function showTxnInput(){ document.getElementById('upiConfirmModal').style.display = 'none'; } 
+        function goBackToCheckout(){ 
+            document.getElementById('upiConfirmModal').style.display = 'none'; 
+            document.getElementById('paymentSelectionModal').style.display = 'block'; 
+        }
+
+        async function saveOrderToFirebase(paymentMode){
+            try {
+                orderData.paymentMethod = paymentMode;
+                orderData.txnId = "N/A"; 
+                orderData.status = "Pending";
+
+                if(db) { await addDoc(collection(db, "orders"), orderData); }
+                else { showCustomAlert("DB not connected"); return; }
+                
+                document.getElementById('paymentSelectionModal').style.display = 'none';
+                document.getElementById('upiConfirmModal').style.display = 'none';
+                
+                let subtotal = orderData.totalAmount - (orderData.codFee || 0);
+                document.getElementById('successOrderId').innerText = orderData.orderId;
+                document.getElementById('billSubtotal').innerText = "₹" + subtotal;
+                document.getElementById('billCodFee').innerText = (orderData.codFee > 0) ? "₹" + orderData.codFee : "₹0";
+                document.getElementById('billTotal').innerText = "₹" + orderData.totalAmount;
+                
+                const statusDiv = document.getElementById('paymentStatusTag');
+                if(paymentMode === 'Cash on Delivery'){
+                    statusDiv.innerHTML = '<div class="cod-tag">Amount to be Paid on Delivery 🏠</div>';
+                } else if(paymentMode === 'WhatsApp Order'){
+                    statusDiv.innerHTML = '<div class="cod-tag">Confirm details on WhatsApp 💬</div>';
+                } else {
+                    statusDiv.innerHTML = '<div class="paid-tag">Amount Paid ✅</div>';
+                }
+                
+                document.getElementById('orderSuccessModal').style.display = 'block';
+                
+                if(paymentMode === 'WhatsApp Order'){
+                    setTimeout(() => {
+                        let msg = `Hi, I placed order ${orderData.orderId} (₹${orderData.totalAmount}). Please confirm.`;
+                        window.open(`https://wa.me/${myWhatsAppNumber}?text=${msg}`, '_blank');
+                    }, 2000);
+                }
+
+                cart = [];
+                updateCartCount();
+            } catch(err) {
+                console.error("Error: ", err);
+                showCustomAlert("Error: " + err.message);
+            }
+        }
+        
+        async function showMyOrders() {
+            if(!userProfile) { showCustomAlert("Please login first"); return; }
+            if(!db) { showCustomAlert("DB not connected"); return; }
+            
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = "Loading...";
+            document.getElementById('myOrdersModal').style.display = 'block';
+            
+            const q = query(collection(db, "orders"), where("mobile", "==", userProfile.mobile), orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+            
+            container.innerHTML = "";
+            if(snapshot.empty){ container.innerHTML = "<p>No past orders found.</p>"; return; }
+            
+            snapshot.forEach(doc => {
+                const o = doc.data();
+                const date = o.timestamp ? o.timestamp.toDate().toLocaleDateString() : "Date N/A";
+                const div = document.createElement('div');
+                div.className = 'order-card';
+                div.innerHTML = `
+                    <div class="oc-header"><span>${o.orderId}</span> <span class="oc-date">${date}</span></div>
+                    <div>${o.items.length} Items</div>
+                    <div class="oc-total">₹${o.totalAmount} <span class="oc-status">${o.status}</span></div>
+                `;
+                div.onclick = () => viewOrderDetails(o);
+                container.appendChild(div);
+            });
+        }
+
+        function viewOrderDetails(o) {
+            document.getElementById('myOrdersModal').style.display = 'none';
+            document.getElementById('odId').innerText = o.orderId;
+            document.getElementById('odTotal').innerText = "₹" + o.totalAmount;
+            document.getElementById('odMode').innerText = o.paymentMethod;
+            document.getElementById('odStatus').innerText = o.status;
+            document.getElementById('odDate').innerText = o.timestamp ? o.timestamp.toDate().toLocaleString() : "";
+            
+            const itemsDiv = document.getElementById('odItems');
+            itemsDiv.innerHTML = "";
+            o.items.forEach(i => {
+                itemsDiv.innerHTML += `<div style="display:flex; justify-content:space-between; margin:5px 0;"><span>${i.name} x${i.qty}</span> <span>₹${i.price*i.qty}</span></div>`;
+            });
+            
+            const trackMsg = `Hi, I want to track my order ${o.orderId}`;
+            document.getElementById('odTrackBtn').onclick = () => window.open(`https://wa.me/${myWhatsAppNumber}?text=${trackMsg}`, '_blank');
+            
+            document.getElementById('orderDetailsModal').style.display = 'block';
+        }
+        
+        function closeSuccessModal() { document.getElementById('orderSuccessModal').style.display = 'none'; }
         function openTrackModal(){ document.getElementById('trackModal').style.display = 'block'; }
         function trackOrder(){
-            let id = document.getElementById('trackInput').value; if(!id){ alert("Please enter Order ID"); return; }
+            let id = document.getElementById('trackInput').value; if(!id){ showCustomAlert("Please enter Order ID"); return; }
             let msg = `Hi, I want to track my order status for Order ID: *${id}*`; window.location.href = `https://wa.me/${myWhatsAppNumber}?text=${msg}`;
         }
     </script>
