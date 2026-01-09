@@ -266,8 +266,9 @@
                 <p>Did you complete the payment?</p>
                 <div class="half-input-group">
                     <button class="btn" onclick="showTxnInput()">Yes, Paid ✅</button>
-                    <button class="btn btn-outline" onclick="payNotDone()">No ❌</button>
+                    <button class="btn btn-outline" onclick="switchToWhatsApp()">No, Send on WhatsApp 💬</button>
                 </div>
+                <button onclick="goBackToCheckout()" style="margin-top:15px;background:none;border:none;cursor:pointer;color:#555;text-decoration:underline;">&larr; Go Back to Details</button>
             </div>
 
             <div id="upiStep2" style="display:none;">
@@ -276,6 +277,7 @@
                 <input type="text" class="form-input" id="txnId" placeholder="e.g. 4281xxxxxx">
                 <button class="btn" onclick="finalizeOrder('UPI')">Submit Order</button>
                 <button class="btn btn-outline" onclick="finalizeOrder('UPI')">Skip (Send Screenshot Later)</button>
+                <button onclick="goBackToCheckout()" style="margin-top:15px;background:none;border:none;cursor:pointer;color:#555;text-decoration:underline;">&larr; Go Back to Details</button>
             </div>
         </div>
     </div>
@@ -441,9 +443,20 @@
             window.location.href = url;
         }
 
-        function payNotDone(){
-            alert("Please complete payment to confirm your order.");
-            tryOpenUPI();
+        // --- NEW FUNCTIONS FOR BACK/SKIP ---
+        
+        function switchToWhatsApp(){
+            // User clicked "No" on payment
+            let confirmSwitch = confirm("Payment issue? Click OK to send order on WhatsApp directly.");
+            if(confirmSwitch){
+                finalizeOrder('WhatsApp Order (Payment Skipped)');
+            }
+        }
+
+        function goBackToCheckout(){
+            // Hide UPI modal, show Checkout modal
+            document.getElementById('upiModal').style.display = 'none';
+            document.getElementById('checkoutModal').style.display = 'block';
         }
 
         function showTxnInput(){
@@ -494,7 +507,8 @@
         window.changeQty = changeQty;
         window.removeItem = removeItem;
         window.tryOpenUPI = tryOpenUPI;
-        window.payNotDone = payNotDone;
+        window.switchToWhatsApp = switchToWhatsApp;
+        window.goBackToCheckout = goBackToCheckout;
         window.showTxnInput = showTxnInput;
         window.finalizeOrder = finalizeOrder;
     </script>
