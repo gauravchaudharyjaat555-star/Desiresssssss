@@ -36,6 +36,7 @@
         .discount-tag{font-size:12px;color:green;font-weight:600;display:block;margin-top:2px;}
         .btn{background:var(--d-pink);color:white;border:none;padding:12px;border-radius:50px;width:100%;font-weight:600;cursor:pointer;font-size:16px;}
         .btn-outline{background:white;border:1px solid var(--d-pink);color:var(--d-pink);margin-top:8px;}
+        .btn-secondary{background:#ddd; color:#333; margin-top:8px;}
 
         /* Utils */
         .wa-float{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;z-index:1000;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
@@ -266,9 +267,9 @@
                 <p>Did you complete the payment?</p>
                 <div class="half-input-group">
                     <button class="btn" onclick="showTxnInput()">Yes, Paid ✅</button>
-                    <button class="btn btn-outline" onclick="switchToWhatsApp()">No, Send on WhatsApp 💬</button>
+                    <button class="btn btn-outline" onclick="payNotDone()">No ❌</button>
                 </div>
-                <button onclick="goBackToCheckout()" style="margin-top:15px;background:none;border:none;cursor:pointer;color:#555;text-decoration:underline;">&larr; Go Back to Details</button>
+                <button class="btn btn-secondary" onclick="goBackToCheckout()" style="margin-top:15px; background:#eee; color:#555;">⬅ Back / Cancel</button>
             </div>
 
             <div id="upiStep2" style="display:none;">
@@ -277,7 +278,8 @@
                 <input type="text" class="form-input" id="txnId" placeholder="e.g. 4281xxxxxx">
                 <button class="btn" onclick="finalizeOrder('UPI')">Submit Order</button>
                 <button class="btn btn-outline" onclick="finalizeOrder('UPI')">Skip (Send Screenshot Later)</button>
-                <button onclick="goBackToCheckout()" style="margin-top:15px;background:none;border:none;cursor:pointer;color:#555;text-decoration:underline;">&larr; Go Back to Details</button>
+                
+                <button class="btn btn-secondary" onclick="goBackToCheckout()" style="margin-top:15px; background:#eee; color:#555;">⬅ Back / Cancel</button>
             </div>
         </div>
     </div>
@@ -443,25 +445,22 @@
             window.location.href = url;
         }
 
-        // --- NEW FUNCTIONS FOR BACK/SKIP ---
-        
-        function switchToWhatsApp(){
-            // User clicked "No" on payment
-            let confirmSwitch = confirm("Payment issue? Click OK to send order on WhatsApp directly.");
-            if(confirmSwitch){
-                finalizeOrder('WhatsApp Order (Payment Skipped)');
+        function payNotDone(){
+            // UPDATED: Now offers to switch to WhatsApp order instead of reopening UPI
+            if(confirm("Payment failed? Click OK to send order via WhatsApp directly.")){
+                finalizeOrder('WhatsApp Order');
             }
-        }
-
-        function goBackToCheckout(){
-            // Hide UPI modal, show Checkout modal
-            document.getElementById('upiModal').style.display = 'none';
-            document.getElementById('checkoutModal').style.display = 'block';
         }
 
         function showTxnInput(){
             document.getElementById('upiStep1').style.display = 'none';
             document.getElementById('upiStep2').style.display = 'block';
+        }
+        
+        // NEW FUNCTION: Handles the back button
+        function goBackToCheckout(){
+            document.getElementById('upiModal').style.display = 'none';
+            document.getElementById('checkoutModal').style.display = 'block';
         }
 
         function finalizeOrder(paymentMode){
@@ -507,10 +506,10 @@
         window.changeQty = changeQty;
         window.removeItem = removeItem;
         window.tryOpenUPI = tryOpenUPI;
-        window.switchToWhatsApp = switchToWhatsApp;
-        window.goBackToCheckout = goBackToCheckout;
+        window.payNotDone = payNotDone;
         window.showTxnInput = showTxnInput;
         window.finalizeOrder = finalizeOrder;
+        window.goBackToCheckout = goBackToCheckout;
     </script>
 </body>
 </html>
