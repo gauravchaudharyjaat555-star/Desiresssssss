@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preety Pop | Luxe Collection</title>
+    <title>Desires Accessories</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         /* --- CSS STYLES --- */
@@ -33,16 +33,18 @@
         .hero-btn{background:white;color:var(--d-pink);padding:10px 25px;border-radius:30px;text-decoration:none;font-weight:bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
         .container{max-width:1200px;margin:auto;padding:0 20px;}
         
-        /* CATEGORY TABS */
+        /* CATEGORY & PRODUCTS */
         .category-scroll {display:flex; overflow-x:auto; gap:12px; padding:10px 20px; margin-bottom:10px; scrollbar-width: none; justify-content: start;}
         .category-scroll::-webkit-scrollbar {display: none;}
-        .cat-btn {white-space:nowrap; padding: 10px 22px; border: none; background: white; color: #888; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;}
-        .cat-btn.active {background: linear-gradient(45deg, #ff9a9e, #fad0c4); color: white; box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4); transform: scale(1.05);}
         
-        /* PRODUCTS */
+        /* Updated Category Buttons Logic */
+        .cat-btn {white-space:nowrap; padding: 10px 22px; border: none; background: white; color: #888; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;}
+        .cat-btn.active {background: linear-gradient(45deg, #ff9a9e, #e75480); color: white; box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4); transform: scale(1.05);}
+        
         .prod-section {display:block; animation: fadeIn 0.5s;}
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
         .section-title{text-align:center;font-family:'Playfair Display';color:#333;margin:40px 0 20px 0;font-size:26px;position:relative;}
+        .section-title::after{content:'🌸';display:block;font-size:14px; margin-top:5px;}
         .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
         .card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.05);transition:.3s;position:relative; border: 1px solid #fff0f5;}
         .card img{width:100%;height:260px;object-fit:cover;}
@@ -70,43 +72,47 @@
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;overflow-y:auto;backdrop-filter: blur(5px);}
         .modal-content{background:white;width:90%;max-width:500px;margin:10% auto;padding:30px;border-radius:30px;text-align:center;box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 2px solid #fff0f5;}
         
-        /* TABLES & LISTS */
+        /* CART TABLE */
         .cart-table {width:100%; border-collapse: separate; border-spacing: 0 15px;}
         .cart-table td {vertical-align: middle; padding:10px; background:white; border-bottom:1px solid #eee;}
-        .order-card {background: #fffafb; padding: 15px; border-radius: 15px; border: 1px solid #ffeef2; margin-bottom: 15px; text-align: left;}
+        .qty-controls {display: flex; align-items: center; justify-content: center; background: #f9f9f9; border-radius: 20px; padding: 2px; width: fit-content; margin: auto;}
+        .qty-btn {background: white; border: none; width: 25px; height: 25px; border-radius: 50%; font-weight: bold; color: var(--d-pink); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+        .qty-val {margin: 0 8px; font-weight: 600; font-size: 14px;}
+
+        /* BILLING STYLES */
+        .bill-row {display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; color: #555;}
+        .bill-total {border-top: 1px dashed #ccc; padding-top: 8px; margin-top: 8px; font-weight: 700; color: #333; font-size: 16px;}
+        .cut-price {text-decoration: line-through; color: #aaa; margin-right: 5px; font-size: 13px;}
+        .free-tag {color: green; font-weight: bold; font-size: 14px;}
+        .nudge-msg {font-size: 12px; color: #e75480; background: #fff0f5; padding: 8px; border-radius: 8px; text-align: center; margin: 10px 0; font-weight: 500;}
+
+        /* MY ORDER CARD */
+        .order-card {background: white; padding: 20px; border-radius: 20px; border: 2px solid #fff0f5; margin-bottom: 20px; text-align: left; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
+        .track-btn-sm {position: absolute; right: 20px; bottom: 20px; padding: 8px 16px; font-size: 13px; background: var(--d-pink); border: none; color: white; border-radius: 20px; cursor: pointer; font-weight: 600;}
+        .order-date {font-size: 12px; color: #888; margin-bottom: 5px; display: block;}
         
-        /* PAYMENT PAGE PRO */
         .pay-grid {display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px;}
-        .pay-btn {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 20px; border: 1px solid #eee; border-radius: 18px;
-            background: white; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            text-align: left; font-weight: 600; color: #333; font-size: 16px;
-        }
+        .pay-btn {display: flex; flex-direction: column; padding: 18px 20px; border: 1px solid #eee; border-radius: 18px; background: white; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); text-align: left; font-weight: 600; color: #333; font-size: 15px; position: relative;}
         .pay-btn:active {transform: scale(0.98); background: #fffafb; border-color: var(--d-pink);}
+        .pay-subtext {font-size: 11px; font-weight: normal; color: #666; margin-top: 4px;}
         
-        /* PROCESSING OVERLAY */
         #processingModal .modal-content {background: transparent; box-shadow: none; border: none; color: white;}
         .spinner {width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; margin: 0 auto 20px auto;}
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* SOCIAL */
-        .social-btn-styled {display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); color:white;}
+        .social-btn-styled {display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); color:white; border:none; cursor: pointer;}
         .insta-style { background: linear-gradient(to right, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .wa-style { background: #25d366; }
         .yt-style { background: linear-gradient(to right, #ff0000, #ff5252); }
+        
+        /* HELP MODAL */
+        .help-content {text-align: center;}
+        .help-msg {font-size: 18px; color: var(--d-pink); font-family: 'Playfair Display'; margin-bottom: 20px;}
     </style>
 </head>
 <body>
 
     <a href="https://wa.me/918679289327" class="wa-float">💬</a>
-
-    <div class="modal" id="customAlertBox" style="z-index: 3000;">
-        <div class="modal-content" style="max-width:320px; padding:25px; background: white;">
-            <h3 style="color:var(--d-pink); font-size:20px;">Notification 🌸</h3>
-            <p id="customAlertMsg" style="color:#555; margin:15px 0;">Message</p>
-            <button class="btn" onclick="document.getElementById('customAlertBox').style.display='none'">Okay</button>
-        </div>
-    </div>
 
     <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
     <div class="sidebar" id="sidebar">
@@ -119,12 +125,25 @@
             <a onclick="closeSidebar(); checkLoginAndRedirect('cart')" class="menu-item">🛍️ My Shopping Bag</a>
             <a onclick="closeSidebar(); showMyOrders()" class="menu-item">📦 My Orders</a>
             <a onclick="closeSidebar(); openTrackModal()" class="menu-item">🚚 Track Order</a>
-            <a href="https://wa.me/918679289327" class="menu-item">💬 Help & Support</a>
-            <div style="margin-top:20px; padding:20px; text-align:center; border-top:1px dashed #ffd1dc;">
+            <div style="border-top:1px dashed #ffd1dc; margin:10px 0;"></div>
+            <a onclick="closeSidebar(); document.getElementById('supportModal').style.display='block'" class="menu-item" style="color:var(--d-pink); font-weight:700;">🤝 Help & Support</a>
+            
+            <div style="margin-top:20px; padding:20px; text-align:center;">
                 <span style="font-size:14px; color:#888; display:block; margin-bottom:10px;">✨ Follow Our Journey ✨</span>
                 <a href="https://www.instagram.com/preety_pop_desires?igsh=MTI5N3hxbHd3bmVoaA==" target="_blank" class="social-btn-styled insta-style">📸 Instagram</a>
                 <a href="https://youtube.com/@preetypopdesires?si=a9olNojwQk8ZHl8a" target="_blank" class="social-btn-styled yt-style">📺 YouTube</a>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" id="supportModal">
+        <div class="modal-content help-content">
+            <div style="font-size:40px; margin-bottom:10px;">💖</div>
+            <h2 class="help-msg">We are always here for you!</h2>
+            <p style="color:#666; margin-bottom:20px;">Need assistance with an order or just want to say hi? Reach out to us.</p>
+            <a href="https://wa.me/918679289327" class="social-btn-styled wa-style">Chat on WhatsApp 💬</a>
+            <a href="https://www.instagram.com/preety_pop_desires" class="social-btn-styled insta-style">Message on Instagram 📸</a>
+            <button class="btn btn-secondary" onclick="document.getElementById('supportModal').style.display='none'">Close</button>
         </div>
     </div>
 
@@ -158,20 +177,20 @@
             <div class="products">
                 <div class="card">
                     <span class="badge">Hot Sale</span>
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80">
                     <div class="card-info">
                         <h3>Mini Desire Box</h3>
                         <div class="price-box"><span class="old-price">₹249</span><span class="new-price">₹149</span><span class="discount-tag">40% OFF</span></div>
-                        <button class="btn" onclick="addCart('Mini Desire Box',149)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Mini Desire Box', 149, 249)">Add to Cart</button>
                     </div>
                 </div>
                 <div class="card">
                     <span class="badge">Trending</span>
-                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80">
                     <div class="card-info">
                         <h3>Classic Desire Box</h3>
                         <div class="price-box"><span class="old-price">₹499</span><span class="new-price">₹299</span><span class="discount-tag">40% OFF</span></div>
-                        <button class="btn" onclick="addCart('Classic Desire Box',299)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Classic Desire Box', 299, 499)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -181,12 +200,31 @@
             <h3 class="section-title">Under ₹99 Store</h3>
             <div class="products">
                 <div class="card">
+                    <span class="badge">Trending</span>
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-info">
+                        <h3>Velvet Scrunchie</h3>
+                        <div class="price-box"><span class="old-price">₹199</span><span class="new-price">₹99</span><span class="discount-tag">50% OFF</span></div>
+                        <button class="btn" onclick="addCart('Velvet Scrunchie', 99, 199)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="badge">Chic</span>
+                    <img src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-info">
+                        <h3>Metal Claw Clip</h3>
+                        <div class="price-box"><span class="old-price">₹149</span><span class="new-price">₹99</span><span class="discount-tag">33% OFF</span></div>
+                        <button class="btn" onclick="addCart('Metal Claw Clip', 99, 149)">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="card">
                     <span class="badge">Steal Deal</span>
                     <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80">
                     <div class="card-info">
                         <h3>Candy Hair Clips</h3>
                         <div class="price-box"><span class="old-price">₹99</span><span class="new-price">₹39</span><span class="discount-tag">60% OFF</span></div>
-                        <button class="btn" onclick="addCart('Candy Hair Clips',39)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Candy Hair Clips', 39, 99)">Add to Cart</button>
                     </div>
                 </div>
                 <div class="card">
@@ -195,16 +233,16 @@
                     <div class="card-info">
                         <h3>Mini Rubber Set</h3>
                         <div class="price-box"><span class="old-price">₹69</span><span class="new-price">₹39</span><span class="discount-tag">45% OFF</span></div>
-                        <button class="btn" onclick="addCart('Mini Rubber Set',39)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Mini Rubber Set', 39, 69)">Add to Cart</button>
                     </div>
                 </div>
                 <div class="card">
-                    <span class="badge">New</span>
-                    <img src="https://images.unsplash.com/photo-1630019852942-e5e1237d3d42?auto=format&fit=crop&w=600&q=80">
+                    <span class="badge">Daily Use</span>
+                    <img src="https://images.unsplash.com/photo-1590543666060-3180d5658b4b?auto=format&fit=crop&w=600&q=80">
                     <div class="card-info">
-                        <h3>Butterfly Studs</h3>
-                        <div class="price-box"><span class="old-price">₹149</span><span class="new-price">₹79</span><span class="discount-tag">47% OFF</span></div>
-                        <button class="btn" onclick="addCart('Butterfly Studs',79)">Add to Cart</button>
+                        <h3>Bobby Pin Set</h3>
+                        <div class="price-box"><span class="old-price">₹59</span><span class="new-price">₹39</span><span class="discount-tag">33% OFF</span></div>
+                        <button class="btn" onclick="addCart('Bobby Pin Set', 39, 59)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -219,7 +257,25 @@
                     <div class="card-info">
                         <h3>Pearl Bracelet Set</h3>
                         <div class="price-box"><span class="old-price">₹299</span><span class="new-price">₹199</span><span class="discount-tag">33% OFF</span></div>
-                        <button class="btn" onclick="addCart('Pearl Bracelet Set',199)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Pearl Bracelet Set', 199, 299)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="badge">Elegant</span>
+                    <img src="https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-info">
+                        <h3>Rose Gold Chain</h3>
+                        <div class="price-box"><span class="old-price">₹399</span><span class="new-price">₹199</span><span class="discount-tag">50% OFF</span></div>
+                        <button class="btn" onclick="addCart('Rose Gold Chain', 199, 399)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="badge">Party Wear</span>
+                    <img src="https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-info">
+                        <h3>Crystal Hoops</h3>
+                        <div class="price-box"><span class="old-price">₹449</span><span class="new-price">₹199</span><span class="discount-tag">55% OFF</span></div>
+                        <button class="btn" onclick="addCart('Crystal Hoops', 199, 449)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -234,7 +290,16 @@
                     <div class="card-info">
                         <h3>Bridal Combo Set</h3>
                         <div class="price-box"><span class="old-price">₹1200</span><span class="new-price">₹799</span><span class="discount-tag">Save ₹401</span></div>
-                        <button class="btn" onclick="addCart('Bridal Combo Set',799)">Add to Cart</button>
+                        <button class="btn" onclick="addCart('Bridal Combo Set', 799, 1200)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="badge" style="background:var(--gold);">Exclusive</span>
+                    <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-info">
+                        <h3>Kundan Choker</h3>
+                        <div class="price-box"><span class="old-price">₹1599</span><span class="new-price">₹899</span><span class="discount-tag">Save ₹700</span></div>
+                        <button class="btn" onclick="addCart('Kundan Choker', 899, 1599)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -244,9 +309,12 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h2>Welcome! 👋</h2>
-            <p>Please enter your details to continue.</p>
-            <input type="text" class="form-input" id="loginName" placeholder="Your Name" required>
-            <input type="tel" class="form-input" id="loginPhone" placeholder="Mobile Number" required>
+            <p>Enter details to continue.</p>
+            <input type="text" class="form-input" id="loginName" placeholder="Full Name">
+            <input type="tel" class="form-input" id="loginPhone" placeholder="Mobile Number">
+            <input type="email" class="form-input" id="loginEmail" placeholder="Email ID (Optional)">
+            <p style="text-align:left; font-size:12px; margin:10px 0 5px 0;">Date of Birth</p>
+            <input type="date" class="form-input" id="loginDob">
             <button class="btn" onclick="performLogin()">Continue ➝</button>
         </div>
     </div>
@@ -255,17 +323,22 @@
         <div class="modal-content">
             <h2>Order Details 📝</h2>
             <form id="checkoutForm">
-                <input type="text" class="form-input" placeholder="Full Name" id="name" required readonly style="background:#f0f0f0;">
-                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile" required readonly style="background:#f0f0f0;">
-                <input type="email" class="form-input" placeholder="Email Address" id="email" required>
+                <p style="font-size:12px; color:red; display:none;" id="checkoutError">Please fill all profile details!</p>
+                <input type="text" class="form-input" placeholder="Full Name" id="name" readonly style="background:#f0f0f0;">
+                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile" readonly style="background:#f0f0f0;">
+                <input type="email" class="form-input" placeholder="Email (Required)" id="email" readonly style="background:#f0f0f0;">
+                <input type="text" class="form-input" placeholder="DOB (Required)" id="dobDisplay" readonly style="background:#f0f0f0;">
+                
                 <p style="text-align:left;font-weight:600;margin:10px 0 5px 0;">Delivery Address 🏠</p>
-                <input type="text" class="form-input" placeholder="Address Line 1" id="addr1">
-                <input type="text" class="form-input" placeholder="Address Line 2" id="addr2">
+                <input type="text" class="form-input" placeholder="House/Flat No." id="addr1" required>
+                <input type="text" class="form-input" placeholder="Landmark (Optional)" id="landmark">
+                <input type="text" class="form-input" placeholder="City" id="city" required>
                 <div class="half-input-group">
-                    <input type="text" class="form-input" placeholder="City" id="city" required>
-                    <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
+                    <input type="text" class="form-input" placeholder="District" id="district" required>
+                    <input type="text" class="form-input" placeholder="State" id="state" required>
                 </div>
-                <input type="text" class="form-input" placeholder="State" id="state" required>
+                <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
+                
                 <button type="submit" class="btn">Proceed to Pay ➝</button>
                 <button type="button" onclick="document.getElementById('checkoutModal').style.display='none'" style="margin-top:10px;background:none;border:none;cursor:pointer;">Cancel</button>
             </form>
@@ -276,25 +349,48 @@
         <div class="modal-content">
             <h2>Payment Method 💳</h2>
             <div style="background:#f8f9fa; padding:15px; border-radius:12px; margin-bottom:20px; text-align:left;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Subtotal</span> <span id="paySelectSubtotal">₹0</span></div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px; color:#e75480; display:none;" id="codRow"><span>Handling Fee</span> <span>+ ₹21</span></div>
+                <div class="bill-row"><span>Total MRP</span> <span id="payMrp" style="text-decoration:line-through;">₹0</span></div>
+                <div class="bill-row" style="color:green;"><span>Discount</span> <span id="payDiscount">-₹0</span></div>
+                <div class="bill-row"><span>Item Total</span> <span id="payItemTotal">₹0</span></div>
+                <div id="upiNudge" class="nudge-msg"></div>
                 <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; margin-top:5px; border-top:1px dashed #ccc; padding-top:5px;">
                     <span>To Pay</span> <span id="paySelectTotal">₹0</span>
                 </div>
+                <p style="font-size:10px; color:#888; text-align:right;">(Delivery added at next step)</p>
             </div>
             
             <div class="pay-grid">
                 <div class="pay-btn" onclick="triggerPayment('UPI')">
-                    <span>🔵 PhonePe / GPay / Paytm</span> <span>➔</span>
+                    <div style="display:flex; justify-content:space-between; width:100%;">
+                        <span>🔵 UPI (PhonePe/GPay)</span> <span>➔</span>
+                    </div>
+                    <span class="pay-subtext" id="upiFeeText">Check Fee Logic...</span>
                 </div>
                 <div class="pay-btn" onclick="triggerPayment('COD')">
-                    <span>💵 Cash on Delivery (+₹21)</span> <span>➔</span>
+                    <div style="display:flex; justify-content:space-between; width:100%;">
+                        <span>💵 Cash on Delivery</span> <span>➔</span>
+                    </div>
+                    <span class="pay-subtext" id="codFeeText">Check Fee Logic...</span>
                 </div>
                 <div class="pay-btn" onclick="triggerPayment('WA')">
-                    <span>💬 Order via WhatsApp (+₹21)</span> <span>➔</span>
+                     <div style="display:flex; justify-content:space-between; width:100%;">
+                        <span>💬 Order via WhatsApp</span> <span>➔</span>
+                     </div>
+                    <span class="pay-subtext" id="waFeeText">Check Fee Logic...</span>
                 </div>
             </div>
             <button class="btn btn-secondary" style="margin-top:20px;" onclick="document.getElementById('paymentSelectionModal').style.display='none'">Back</button>
+        </div>
+    </div>
+
+    <div class="modal" id="feeConfirmModal" style="z-index: 3000;">
+        <div class="modal-content" style="max-width:320px; padding:25px; background: #fff0f5; border: 2px solid #e75480;">
+            <h3 style="color:var(--d-pink); font-size:22px;">Delivery Charge 🚚</h3>
+            <p style="color:#555; margin:15px 0;" id="feeConfirmMsg">Extra charge applies.</p>
+            <div class="half-input-group" style="margin-top:20px;">
+                <button class="btn" onclick="confirmFeeAndPay()">Accept ✅</button>
+                <button class="btn btn-outline" onclick="document.getElementById('feeConfirmModal').style.display='none'">Cancel ❌</button>
+            </div>
         </div>
     </div>
 
@@ -309,8 +405,7 @@
     <div class="modal" id="paymentVerifyModal">
         <div class="modal-content">
             <h3 style="color:#f44336;">⚠️ Confirmation Needed</h3>
-            <p>We couldn't fetch the payment status automatically.</p>
-            <p style="background:#fff0f0; padding:10px; border-radius:8px; margin:15px 0;"><strong>Did you complete the payment?</strong></p>
+            <p>Did you complete the UPI payment?</p>
             <div class="half-input-group">
                 <button class="btn" onclick="handlePaymentYes()">Yes, Paid ✅</button>
                 <button class="btn btn-outline" onclick="handlePaymentNo()">No, Retry ❌</button>
@@ -321,12 +416,9 @@
     <div class="modal" id="txnInputModal">
         <div class="modal-content">
             <h3>Final Step 🔒</h3>
-            <p>Please enter the Transaction/UTR ID to confirm your order.</p>
+            <p>Enter Transaction/UTR ID (Optional)</p>
             <input type="text" id="txnIdInput" class="form-input" placeholder="e.g. T230918273...">
-            <button class="btn" onclick="submitTxnId()">Verify & Submit</button>
-            <p style="margin:15px 0; color:#888;">OR</p>
-            <button class="btn btn-outline" style="border-color:#25d366; color:#25d366;" onclick="sendScreenshot()">Send Screenshot on WhatsApp 📷</button>
-            <button class="btn btn-secondary" style="margin-top:15px;" onclick="document.getElementById('txnInputModal').style.display='none'">Back</button>
+            <button class="btn" onclick="submitTxnId()">Submit Order</button>
         </div>
     </div>
 
@@ -334,10 +426,16 @@
         <div class="modal-content" style="text-align:center;">
             <div style="font-size:50px;">✅</div>
             <h2>Order Placed! 🎉</h2>
-            <p>Your Order ID: <strong id="successOrderId"></strong></p>
-            <p style="background:#eaffea; padding:10px; border-radius:10px; color:green; font-weight:bold;" id="successStatus">Payment Verified</p>
-            <br>
-            <button class="btn" onclick="document.getElementById('orderSuccessModal').style.display='none'">Continue Shopping</button>
+            <p>Order ID: <strong id="successOrderId"></strong></p>
+            <div style="background:#f9f9f9; padding:15px; border-radius:10px; margin:15px 0; text-align:left; font-size:14px;">
+                <div class="bill-row"><span>Total MRP</span> <span id="succMrp" style="text-decoration:line-through; color:#aaa;"></span></div>
+                <div class="bill-row"><span>Delivery</span> <span id="succDel"></span></div>
+                <div class="bill-row" style="font-weight:bold; font-size:16px; margin-top:5px; border-top:1px dashed #ccc; padding-top:5px;">
+                    <span id="succLabel">Amount Paid</span> <span id="succTotal" style="color:var(--d-pink);"></span>
+                </div>
+            </div>
+            <button class="btn" onclick="document.getElementById('orderSuccessModal').style.display='none'">Continue Shopping 🛍️</button>
+            <button class="btn btn-outline" onclick="document.getElementById('orderSuccessModal').style.display='none'; showMyOrders();">Go to My Orders 📦</button>
         </div>
     </div>
 
@@ -349,16 +447,49 @@
         </div>
     </div>
 
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <h2>My Profile 👸</h2>
+            <div style="text-align:left; margin-bottom:15px;">
+                <label style="font-size:12px; font-weight:bold; color:#888;">Personal (Optional)</label>
+                <input id="profName" class="form-input" placeholder="Name">
+                <input id="profMobile" class="form-input" placeholder="Mobile">
+                <input id="profEmail" class="form-input" placeholder="Email">
+                <input type="date" id="profDob" class="form-input" placeholder="DOB">
+                
+                <label style="font-size:12px; font-weight:bold; color:#888; display:block; margin-top:10px;">Saved Address (Optional)</label>
+                <input id="profAddr1" class="form-input" placeholder="House/Flat No.">
+                <input id="profLandmark" class="form-input" placeholder="Landmark">
+                <input id="profCity" class="form-input" placeholder="City">
+                <div class="half-input-group">
+                    <input id="profDistrict" class="form-input" placeholder="District">
+                    <input id="profState" class="form-input" placeholder="State">
+                </div>
+                <input id="profPincode" class="form-input" placeholder="Pincode">
+            </div>
+            <button class="btn" onclick="saveProfileDetails()">Save Details</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('profileModal').style.display='none'">Close</button>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
-    <div class="modal" id="cartModal"><div class="modal-content"><h2>Your Cart</h2><table class="cart-table" id="cartItemsTable"></table><button class="btn" id="checkoutBtn" onclick="checkLoginAndRedirect('checkout')">Checkout</button><button onclick="closeCartModal()" style="margin-top:10px;background:none;border:none;">Close</button></div></div>
-    <div class="modal" id="profileModal"><div class="modal-content"><h2>Profile</h2><input id="profNameInput" class="form-input" placeholder="Name"><input id="profMobileInput" class="form-input" placeholder="Mobile"><button class="btn" onclick="saveProfileDetails()">Save</button><button class="btn btn-secondary" onclick="document.getElementById('profileModal').style.display='none'">Close</button></div></div>
+    
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <h2>Your Cart 🛍️</h2>
+            <table class="cart-table" id="cartItemsTable"></table>
+            <div id="cartEmptyMsg" style="display:none; color:#888; margin:20px;">Cart is empty 💔</div>
+            <button class="btn" id="checkoutBtn" onclick="checkLoginAndRedirect('checkout')">Proceed to Checkout</button>
+            <button onclick="closeCartModal()" style="margin-top:10px;background:none;border:none;cursor:pointer;">Continue Shopping</button>
+        </div>
+    </div>
+
     <div class="modal" id="trackModal"><div class="modal-content"><h2>Track Order</h2><input id="trackInput" class="form-input" placeholder="Enter Order ID"><button class="btn" onclick="trackOrder()">Track</button><button class="btn btn-secondary" onclick="document.getElementById('trackModal').style.display='none'">Close</button></div></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // --- TERA ASLI CONFIG (Added Successfully) ---
         const firebaseConfig = {
           apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
           authDomain: "preety-pop.firebaseapp.com",
@@ -370,106 +501,220 @@
         };
 
         let app, db;
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            console.log("Firebase Connected");
-        } catch(e) {
-            console.error("Firebase config error", e);
-        }
+        try { app = initializeApp(firebaseConfig); db = getFirestore(app); console.log("Firebase Connected"); } 
+        catch(e) { console.error("Firebase config error", e); }
 
-        // CONFIG
         const myWhatsAppNumber = "918679289327";
         const myUpiId = "preetypop8180@boi";
         let cart = JSON.parse(localStorage.getItem('cart')||'[]');
         let userProfile = JSON.parse(localStorage.getItem('userProfile'));
         let cartTemp = [], orderData = {};
+        let selectedMethod = "";
+        let calculatedFee = 0;
 
-        // INIT
         window.onload = () => { updateCartCount(); if(userProfile) updateMenuUser(); };
 
-        // EXPORTS
         window.openSidebar = () => { document.getElementById('sidebar').classList.add('active'); document.getElementById('overlay').classList.add('active'); };
         window.closeSidebar = () => { document.getElementById('sidebar').classList.remove('active'); document.getElementById('overlay').classList.remove('active'); };
-        window.addCart = (name, price) => { 
+        
+        window.addCart = (name, price, mrp) => { 
             let exist = cart.find(p=>p.name===name); 
-            if(exist) exist.qty++; else cart.push({name, price, qty:1});
+            if(exist) exist.qty++; else cart.push({name, price, mrp, qty:1});
             updateCartCount(); showToast(name+" added");
         };
+
         window.openCartModal = () => {
-            const t = document.getElementById('cartItemsTable'); t.innerHTML=''; let total=0;
-            if(cart.length===0){ t.innerHTML='Empty'; document.getElementById('checkoutBtn').style.display='none'; }
+            const t = document.getElementById('cartItemsTable'); t.innerHTML=''; 
+            if(cart.length===0){ document.getElementById('cartEmptyMsg').style.display='block'; document.getElementById('checkoutBtn').style.display='none'; }
             else {
+                document.getElementById('cartEmptyMsg').style.display='none';
                 document.getElementById('checkoutBtn').style.display='block';
-                cart.forEach((i,idx) => { total+=i.price*i.qty; t.innerHTML+=`<tr><td>${i.name}</td><td>₹${i.price}</td><td>x${i.qty}</td><td onclick="removeItem(${idx})">❌</td></tr>`; });
+                cart.forEach((i,idx) => { 
+                    t.innerHTML+=`<tr>
+                        <td><b>${i.name}</b><br>₹${i.price}</td>
+                        <td><div class="qty-controls"><button class="qty-btn" onclick="changeQty(${idx}, -1)">-</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button></div></td>
+                        <td onclick="removeItem(${idx})" style="color:red; cursor:pointer;">✕</td>
+                    </tr>`; 
+                });
             }
             document.getElementById('cartModal').style.display='block';
         };
+
+        window.changeQty = (idx, val) => {
+            cart[idx].qty += val;
+            if(cart[idx].qty < 1) cart[idx].qty = 1;
+            updateCartCount(); window.openCartModal();
+        };
+
         window.removeItem = (i) => { cart.splice(i,1); updateCartCount(); window.openCartModal(); };
         window.closeCartModal = () => document.getElementById('cartModal').style.display='none';
         
         window.checkLoginAndRedirect = (action) => {
-            if(!userProfile) document.getElementById('loginModal').style.display='block';
-            else if(action==='checkout') openCheckout();
+            if(action==='cart') window.openCartModal();
+            else if(action==='checkout') {
+                document.getElementById('cartModal').style.display='none';
+                openCheckout();
+            }
         };
         
         window.performLogin = () => {
-            let n = document.getElementById('loginName').value, m = document.getElementById('loginPhone').value;
-            if(!n || !m) return alert("Fill details");
-            userProfile = {name:n, mobile:m}; localStorage.setItem('userProfile', JSON.stringify(userProfile));
-            document.getElementById('loginModal').style.display='none'; updateMenuUser();
+            let n = document.getElementById('loginName').value;
+            let m = document.getElementById('loginPhone').value;
+            let e = document.getElementById('loginEmail').value;
+            let d = document.getElementById('loginDob').value;
+            
+            if(!n || !m) return alert("Name and Mobile are required.");
+            
+            userProfile = {name:n, mobile:m, email:e, dob:d, address: {}}; 
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            document.getElementById('loginModal').style.display='none'; 
+            updateMenuUser();
+            if(cart.length > 0) openCheckout();
         };
 
         window.openCheckout = () => {
+            if(!userProfile) { document.getElementById('loginModal').style.display='block'; return; }
             cartTemp = [...cart];
             if(cartTemp.length===0) return alert("Cart empty");
-            document.getElementById('name').value = userProfile.name;
-            document.getElementById('mobile').value = userProfile.mobile;
+            
+            // Update fields
+            document.getElementById('name').value = userProfile.name || '';
+            document.getElementById('mobile').value = userProfile.mobile || '';
+            document.getElementById('email').value = userProfile.email || '';
+            document.getElementById('dobDisplay').value = userProfile.dob || '';
+            
+            // Fill Address if exists
+            if(userProfile.address) {
+                document.getElementById('addr1').value = userProfile.address.addr1 || "";
+                document.getElementById('landmark').value = userProfile.address.landmark || "";
+                document.getElementById('city').value = userProfile.address.city || "";
+                document.getElementById('district').value = userProfile.address.district || "";
+                document.getElementById('state').value = userProfile.address.state || "";
+                document.getElementById('pincode').value = userProfile.address.pincode || "";
+            }
+
             document.getElementById('checkoutModal').style.display='block';
         };
 
         document.getElementById('checkoutForm').onsubmit = (e) => {
             e.preventDefault();
+            
+            let name = document.getElementById('name').value;
+            let mobile = document.getElementById('mobile').value;
+            let email = document.getElementById('email').value;
+            let dob = document.getElementById('dobDisplay').value;
+
+            if(!name || !mobile || !email || !dob) {
+                alert("Name, Mobile, Email and DOB are mandatory for checkout! Please update profile.");
+                document.getElementById('checkoutModal').style.display='none';
+                showProfile(); 
+                return;
+            }
+
+            // AUTO-SAVE ADDRESS LOGIC (Point 1)
+            let addr = {
+                addr1: document.getElementById('addr1').value,
+                landmark: document.getElementById('landmark').value,
+                city: document.getElementById('city').value,
+                district: document.getElementById('district').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value
+            };
+            
+            if(userProfile) {
+                userProfile.address = addr;
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            }
+
             orderData = {
                 orderId: 'ORD-'+Math.floor(Math.random()*90000),
-                name: document.getElementById('name').value,
-                mobile: document.getElementById('mobile').value,
-                addr: document.getElementById('addr1').value + ", " + document.getElementById('city').value,
+                name, mobile, email, dob,
+                fullAddress: `${addr.addr1}, ${addr.landmark}, ${addr.city}, ${addr.district}, ${addr.state} - ${addr.pincode}`,
                 items: cartTemp,
                 timestamp: new Date()
             };
             
-            let total = 0; cartTemp.forEach(i=>total+=i.price*i.qty);
-            document.getElementById('paySelectSubtotal').innerText = '₹'+total;
-            document.getElementById('paySelectTotal').innerText = '₹'+total;
+            let totalSelling = 0;
+            let totalMrp = 0;
+            cartTemp.forEach(i => {
+                totalSelling += i.price * i.qty;
+                totalMrp += i.mrp * i.qty;
+            });
+            let discount = totalMrp - totalSelling;
+
+            document.getElementById('payMrp').innerText = '₹' + totalMrp;
+            document.getElementById('payDiscount').innerText = '-₹' + discount;
+            document.getElementById('payItemTotal').innerText = '₹' + totalSelling;
+            document.getElementById('paySelectTotal').innerText = '₹' + totalSelling;
+            document.getElementById('paySelectTotal').setAttribute('data-base', totalSelling);
+            document.getElementById('paySelectTotal').setAttribute('data-mrp', totalMrp);
+
+            let upiText = (totalSelling >= 299) ? "Free Delivery! 🎉" : "+ ₹41 Delivery";
+            let codText = (totalSelling >= 499) ? "Free Delivery! 🎉" : "+ ₹41 Delivery (Fee)";
             
+            document.getElementById('upiFeeText').innerText = upiText;
+            document.getElementById('codFeeText').innerText = codText;
+            document.getElementById('waFeeText').innerText = codText;
+            document.getElementById('upiFeeText').style.color = (totalSelling >= 299) ? 'green' : 'red';
+
+            let nudge = document.getElementById('upiNudge');
+            if(totalSelling < 299) {
+                nudge.innerHTML = `💡 Add <b>₹${299 - totalSelling}</b> more for FREE Delivery on UPI!`;
+                nudge.style.display = 'block';
+            } else if(totalSelling < 499) {
+                nudge.innerHTML = `💡 Add <b>₹${499 - totalSelling}</b> more for FREE Delivery on COD!`;
+                nudge.style.display = 'block';
+            } else {
+                nudge.style.display = 'none';
+            }
+
             document.getElementById('checkoutModal').style.display='none';
             document.getElementById('paymentSelectionModal').style.display='block';
         };
 
         window.triggerPayment = (method) => {
-            let baseTotal = parseInt(document.getElementById('paySelectSubtotal').innerText.replace('₹',''));
-            let fee = (method==='COD' || method==='WA') ? 21 : 0;
-            let final = baseTotal + fee;
+            let baseTotal = parseInt(document.getElementById('paySelectTotal').getAttribute('data-base'));
+            selectedMethod = method;
             
-            if(fee > 0 && !confirm(`Extra ₹21 handling fee applies.\nTotal: ₹${final}\nContinue?`)) return;
-            
+            if(method === 'UPI') {
+                calculatedFee = (baseTotal >= 299) ? 0 : 41;
+            } else {
+                calculatedFee = (baseTotal >= 499) ? 0 : 41;
+            }
+
+            if(calculatedFee > 0) {
+                document.getElementById('feeConfirmMsg').innerHTML = `Order Value: ₹${baseTotal}<br>Delivery Charge: ₹${calculatedFee}<br><b>Total: ₹${baseTotal + calculatedFee}</b>`;
+                document.getElementById('feeConfirmModal').style.display = 'block';
+            } else {
+                processPayment(baseTotal, 0, method);
+            }
+        };
+
+        window.confirmFeeAndPay = () => {
+            document.getElementById('feeConfirmModal').style.display = 'none';
+            let baseTotal = parseInt(document.getElementById('paySelectTotal').getAttribute('data-base'));
+            processPayment(baseTotal, calculatedFee, selectedMethod);
+        }
+
+        function processPayment(base, fee, method) {
+            let final = base + fee;
             orderData.totalAmount = final;
             orderData.paymentMethod = method;
             orderData.status = 'Pending';
-
-            document.getElementById('paymentSelectionModal').style.display='none';
-            document.getElementById('processingModal').style.display='block';
+            orderData.deliveryFee = fee;
+            orderData.mrp = document.getElementById('paySelectTotal').getAttribute('data-mrp');
 
             if(method === 'UPI') {
+                document.getElementById('paymentSelectionModal').style.display='none';
+                document.getElementById('processingModal').style.display='block';
                 window.location.href = `upi://pay?pa=${myUpiId}&pn=PreetyPop&am=${final}&cu=INR`;
-                // Show Verification Modal AFTER fake loading
                 setTimeout(() => {
                     document.getElementById('processingModal').style.display='none';
                     document.getElementById('paymentVerifyModal').style.display='block';
                 }, 3000);
             } else {
-                // Direct Success for COD/WA
+                document.getElementById('paymentSelectionModal').style.display='none';
+                document.getElementById('processingModal').style.display='block';
                 setTimeout(async () => {
                     await finishOrder(method);
                     if(method === 'WA') {
@@ -477,38 +722,38 @@
                     }
                 }, 2000);
             }
-        };
+        }
 
         window.handlePaymentYes = () => {
             document.getElementById('paymentVerifyModal').style.display='none';
             document.getElementById('txnInputModal').style.display='block';
         };
-
+        
         window.handlePaymentNo = () => {
-            document.getElementById('paymentVerifyModal').style.display='none';
-            document.getElementById('paymentSelectionModal').style.display='block';
-        };
+             document.getElementById('paymentVerifyModal').style.display='none';
+             document.getElementById('paymentSelectionModal').style.display='block';
+        }
 
         window.submitTxnId = async () => {
             let txn = document.getElementById('txnIdInput').value;
-            if(!txn) return alert("Please enter Transaction ID");
-            orderData.txnId = txn;
+            if(txn) orderData.txnId = txn;
             orderData.status = "Paid (Verifying)";
             document.getElementById('txnInputModal').style.display='none';
             await finishOrder("UPI");
         };
 
-        window.sendScreenshot = () => {
-            let msg = `Hi, I paid for Order ID: ${orderData.orderId} (Amount: ₹${orderData.totalAmount}). Here is the screenshot:`;
-            window.open(`https://wa.me/${myWhatsAppNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-        };
-
         async function finishOrder(method) {
             document.getElementById('processingModal').style.display='none';
             try {
-                await addDoc(collection(db, "orders"), orderData);
+                if(db) await addDoc(collection(db, "orders"), orderData);
+                
                 document.getElementById('successOrderId').innerText = orderData.orderId;
-                document.getElementById('successStatus').innerText = (method==='COD') ? "Order Placed (Cash on Delivery)" : "Order Successfully Placed";
+                document.getElementById('succMrp').innerText = '₹' + orderData.mrp;
+                let delText = (orderData.deliveryFee === 0) ? `<span style="text-decoration:line-through; color:#aaa;">₹41</span> <span style="color:green; font-weight:bold;">Free</span>` : `₹${orderData.deliveryFee}`;
+                document.getElementById('succDel').innerHTML = delText;
+                document.getElementById('succTotal').innerText = '₹' + orderData.totalAmount;
+                document.getElementById('succLabel').innerText = (method === 'UPI') ? "Amount Paid ✅" : "Amount to be Paid ⏳";
+
                 document.getElementById('orderSuccessModal').style.display='block';
                 cart=[]; updateCartCount();
             } catch(e) { alert("Error saving order: " + e.message); }
@@ -521,7 +766,6 @@
             
             const q = query(collection(db, "orders"), where("mobile", "==", userProfile.mobile));
             const snap = await getDocs(q);
-            
             let docs = [];
             snap.forEach(d => docs.push(d.data()));
             docs.sort((a,b) => b.timestamp - a.timestamp); 
@@ -529,34 +773,72 @@
             c.innerHTML = "";
             if(docs.length===0) c.innerHTML="No orders found.";
             docs.forEach(o => {
-                c.innerHTML += `<div class="order-card"><b>${o.orderId}</b> - ₹${o.totalAmount}<br><span style="font-size:12px">${o.paymentMethod} | ${o.status}</span></div>`;
+                let dateObj = new Date(o.timestamp.seconds * 1000);
+                let dateStr = dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString();
+                c.innerHTML += `
+                <div class="order-card">
+                    <span class="order-date">📅 ${dateStr}</span>
+                    <button class="track-btn-sm" onclick="trackOrder('${o.orderId}')">Track Order</button>
+                    <div style="font-size:16px; font-weight:bold; color:var(--d-pink);">${o.orderId}</div>
+                    <div style="font-size:14px; margin-top:5px;">Amount: ₹${o.totalAmount} <span style="color:#aaa;">(${o.paymentMethod})</span></div>
+                    <div style="font-size:13px; color:green; margin-top:5px; font-weight:500;">Status: ${o.status}</div>
+                </div>`;
             });
         };
 
-        // HELPER
-        function updateCartCount(){ document.getElementById('cCount').innerText = cart.length; localStorage.setItem('cart', JSON.stringify(cart)); }
-        function updateMenuUser(){ document.getElementById('menuUserMsg').innerText = "Hi, " + userProfile.name; }
-        function showToast(m){ const t=document.getElementById('toast'); t.innerText=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
-        window.filterCategory = (cat) => {
-            document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none');
-        };
         window.showProfile = () => { 
-            if(!userProfile) return alert("Login first");
-            document.getElementById('profNameInput').value = userProfile.name;
-            document.getElementById('profMobileInput').value = userProfile.mobile;
+            if(!userProfile) { document.getElementById('loginModal').style.display='block'; return; }
+            document.getElementById('profName').value = userProfile.name || '';
+            document.getElementById('profMobile').value = userProfile.mobile || '';
+            document.getElementById('profEmail').value = userProfile.email || ''; 
+            document.getElementById('profDob').value = userProfile.dob || '';
+            
+            if(userProfile.address) {
+                document.getElementById('profAddr1').value = userProfile.address.addr1 || "";
+                document.getElementById('profLandmark').value = userProfile.address.landmark || "";
+                document.getElementById('profCity').value = userProfile.address.city || "";
+                document.getElementById('profDistrict').value = userProfile.address.district || "";
+                document.getElementById('profState').value = userProfile.address.state || "";
+                document.getElementById('profPincode').value = userProfile.address.pincode || "";
+            }
             document.getElementById('profileModal').style.display='block'; 
         };
+
         window.saveProfileDetails = () => {
-            userProfile.name = document.getElementById('profNameInput').value;
-            userProfile.mobile = document.getElementById('profMobileInput').value;
+            userProfile.name = document.getElementById('profName').value;
+            userProfile.mobile = document.getElementById('profMobile').value;
+            userProfile.email = document.getElementById('profEmail').value;
+            userProfile.dob = document.getElementById('profDob').value;
+            
+            userProfile.address = {
+                addr1: document.getElementById('profAddr1').value,
+                landmark: document.getElementById('profLandmark').value,
+                city: document.getElementById('profCity').value,
+                district: document.getElementById('profDistrict').value,
+                state: document.getElementById('profState').value,
+                pincode: document.getElementById('profPincode').value
+            };
+
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('profileModal').style.display='none';
+            showToast("Profile Saved!");
         }
-        window.trackOrder = () => {
-             let id = document.getElementById('trackInput').value;
-             if(!id) return alert("Enter ID");
-             window.location.href = `https://wa.me/${myWhatsAppNumber}?text=Track ${id}`;
-        }
+
+        function updateCartCount(){ document.getElementById('cCount').innerText = cart.length; localStorage.setItem('cart', JSON.stringify(cart)); }
+        function updateMenuUser(){ document.getElementById('menuUserMsg').innerText = "Hi, " + (userProfile.name || 'Guest'); }
+        function showToast(m){ const t=document.getElementById('toast'); t.innerText=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+        
+        // UPDATED CATEGORY FILTER LOGIC (Point 2)
+        window.filterCategory = (cat, btnElement) => { 
+            // Highlight Button
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Filter Sections
+            document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
+        };
+        
+        window.trackOrder = (id) => { let tid = id || document.getElementById('trackInput').value; if(!tid) return alert("Enter ID"); window.location.href = `https://wa.me/${myWhatsAppNumber}?text=Track ${tid}`; }
         window.openTrackModal = () => document.getElementById('trackModal').style.display='block';
     </script>
 </body>
