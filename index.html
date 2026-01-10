@@ -108,20 +108,12 @@
         .timeline-wrapper { position: relative; padding-left: 20px; margin-top: 15px; text-align: left; }
         .timeline-item { position: relative; padding-bottom: 25px; padding-left: 25px; border-left: 2px solid #eee; }
         .timeline-item:last-child { border-left: none; }
-        
-        /* The Dot */
         .timeline-item::before { content: ''; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #eee; border: 2px solid white; box-shadow: 0 0 0 2px white; transition: 0.4s; }
-        
-        /* Active State (Completed Steps) */
         .timeline-item.active { border-left-color: var(--success-green); }
         .timeline-item.active::before { background: var(--success-green); box-shadow: 0 0 0 4px #eaffea; }
         .timeline-item.active .time-title { color: #333; font-weight: 700; }
-        
-        /* Text Styles */
         .time-title { font-size: 14px; color: #aaa; font-weight: 500; transition:0.3s; }
         .time-desc { font-size: 11px; color: #888; display:block; margin-top:2px;}
-
-        /* Animation for the line */
         .timeline-item { transition: border-left-color 0.5s ease-in-out; }
     </style>
 </head>
@@ -509,6 +501,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+        // 🔥 YOUR NEW FIREBASE CONFIG (Updated)
         const firebaseConfig = {
           apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
           authDomain: "preety-pop.firebaseapp.com",
@@ -605,7 +598,9 @@
             
             cartTemp.forEach(i => {
                 let p = parseFloat(i.price);
+                // FIX FOR NaN: Fallback to price if MRP is missing or invalid
                 let m = (i.mrp && !isNaN(i.mrp)) ? parseFloat(i.mrp) : p;
+                
                 totalSelling += p * i.qty;
                 totalMrp += m * i.qty;
             });
@@ -685,7 +680,6 @@
             document.getElementById('checkoutModal').style.display='block';
         };
 
-        // FIXED: Renamed to validateAndPlaceOrder to act as manual submit
         window.validateAndPlaceOrder = () => {
             let name = document.getElementById('name').value;
             let mobile = document.getElementById('mobile').value;
@@ -794,7 +788,6 @@
             }
         }
 
-        // FIXED: Track Button inside My Orders now works
         window.showMyOrders = async () => {
             if(!userProfile) return alert("Login first");
             const c = document.getElementById('ordersContainer'); c.innerHTML="Loading...";
@@ -886,7 +879,6 @@
                 let data = snap.docs[0].data();
                 let st = data.status.toLowerCase();
 
-                // Define Steps
                 let steps = [
                     { name: 'Ordered', active: true },
                     { name: 'Shipped', active: st.includes('shipped') || st.includes('out') || st.includes('delivered') },
