@@ -107,6 +107,13 @@
         /* HELP MODAL */
         .help-content {text-align: center;}
         .help-msg {font-size: 18px; color: var(--d-pink); font-family: 'Playfair Display'; margin-bottom: 20px;}
+
+        /* TRACKING RESULT BOX */
+        #trackResultBox { margin-top:15px; padding:15px; background:#f9f9f9; border-radius:10px; border:1px solid #eee; display:none; }
+        .status-badge { padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; background: #ddd; color: #333; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-shipped { background: #d1ecf1; color: #0c5460; }
+        .status-delivered { background: #d4edda; color: #155724; }
     </style>
 </head>
 <body>
@@ -482,7 +489,21 @@
         </div>
     </div>
 
-    <div class="modal" id="trackModal"><div class="modal-content"><h2>Track Order</h2><input id="trackInput" class="form-input" placeholder="Enter Order ID"><button class="btn" onclick="trackOrder()">Track</button><button class="btn btn-secondary" onclick="document.getElementById('trackModal').style.display='none'">Close</button></div></div>
+    <div class="modal" id="trackModal">
+        <div class="modal-content">
+            <h2>Track Order 🚚</h2>
+            <input id="trackInput" class="form-input" placeholder="Enter Order ID (e.g. PP-81xxxx)">
+            <button class="btn" onclick="trackOrder()">Track Now</button>
+            
+            <div id="trackResultBox">
+                <p><strong>Order ID:</strong> <span id="trId"></span></p>
+                <p><strong>Status:</strong> <span id="trStatus"></span></p>
+                <p style="font-size:12px; color:#666; margin-top:5px;">Estimated Delivery: 5-7 Days</p>
+            </div>
+
+            <button class="btn btn-secondary" onclick="document.getElementById('trackModal').style.display='none'">Close</button>
+        </div>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -551,7 +572,6 @@
         window.removeItem = (i) => { cart.splice(i,1); updateCartCount(); window.openCartModal(); };
         window.closeCartModal = () => document.getElementById('cartModal').style.display='none';
         
-        // CHANGED FLOW: Cart -> Payment -> Address
         window.checkLoginAndRedirect = (action) => {
             if(action==='cart') window.openCartModal();
             else if(action==='payment') {
@@ -576,7 +596,6 @@
             if(cart.length > 0) preparePaymentModal();
         };
 
-        // 1. Prepare Payment Modal (Fix NaN here)
         window.preparePaymentModal = () => {
             cartTemp = [...cart];
             if(cartTemp.length===0) return alert("Cart empty");
@@ -586,16 +605,12 @@
             
             cartTemp.forEach(i => {
                 let p = parseFloat(i.price);
-                // FIX FOR NaN: Fallback to price if MRP is missing or invalid
                 let m = (i.mrp && !isNaN(i.mrp)) ? parseFloat(i.mrp) : p;
-                
                 totalSelling += p * i.qty;
                 totalMrp += m * i.qty;
             });
             
             let discount = totalMrp - totalSelling;
-            
-            // Store global for later access
             finalTotal = totalSelling;
             finalMrp = totalMrp;
 
@@ -604,7 +619,6 @@
             document.getElementById('payItemTotal').innerText = '₹' + totalSelling;
             document.getElementById('paySelectTotal').innerText = '₹' + totalSelling;
             
-            // Delivery Text Logic
             let upiText = (totalSelling >= 299) ? "Free Delivery! 🎉" : "+ ₹41 Delivery";
             let codText = (totalSelling >= 499) ? "Free Delivery! 🎉" : "+ ₹41 Delivery (Fee)";
             
@@ -627,10 +641,8 @@
             document.getElementById('paymentSelectionModal').style.display='block';
         };
 
-        // 2. Trigger Payment -> Calculate Fee -> Ask Address
         window.triggerPayment = (method) => {
             selectedMethod = method;
-            
             if(method === 'UPI') {
                 finalFee = (finalTotal >= 299) ? 0 : 41;
             } else {
@@ -641,7 +653,7 @@
                 document.getElementById('feeConfirmMsg').innerHTML = `Order Value: ₹${finalTotal}<br>Delivery Charge: ₹${finalFee}<br><b>Total: ₹${finalTotal + finalFee}</b>`;
                 document.getElementById('feeConfirmModal').style.display = 'block';
             } else {
-                confirmFeeAndProceed(); // Go to address directly
+                confirmFeeAndProceed();
             }
         };
 
@@ -651,9 +663,7 @@
             openAddressForm();
         }
 
-        // 3. Address Form
         window.openAddressForm = () => {
-            // Pre-fill fields
             document.getElementById('name').value = userProfile.name || '';
             document.getElementById('mobile').value = userProfile.mobile || '';
             document.getElementById('email').value = userProfile.email || '';
@@ -668,7 +678,6 @@
                 document.getElementById('pincode').value = userProfile.address.pincode || "";
             }
             
-            // Update button text based on method
             let grandTotal = finalTotal + finalFee;
             let btnText = (selectedMethod === 'UPI') ? `Pay ₹${grandTotal} Now ➝` : `Place Order (₹${grandTotal}) ➝`;
             document.getElementById('finalPayBtn').innerText = btnText;
@@ -676,7 +685,6 @@
             document.getElementById('checkoutModal').style.display='block';
         };
 
-        // 4. Final Submission
         document.getElementById('checkoutForm').onsubmit = (e) => {
             e.preventDefault();
             
@@ -690,7 +698,6 @@
                 return;
             }
 
-            // Save Address
             let addr = {
                 addr1: document.getElementById('addr1').value,
                 landmark: document.getElementById('landmark').value,
@@ -703,10 +710,12 @@
             userProfile.address = addr;
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-            // Create Order Data
+            // NEW ORDER ID LOGIC (PP-81 + 5 Digits)
+            let uniqueId = 'PP-81' + Math.floor(10000 + Math.random() * 90000);
+
             let grandTotal = finalTotal + finalFee;
             orderData = {
-                orderId: 'ORD-'+Math.floor(Math.random()*90000),
+                orderId: uniqueId,
                 name, mobile, email, dob,
                 fullAddress: `${addr.addr1}, ${addr.landmark}, ${addr.city}, ${addr.district}, ${addr.state} - ${addr.pincode}`,
                 items: cartTemp,
@@ -748,7 +757,6 @@
         
         window.handlePaymentNo = () => {
              document.getElementById('paymentVerifyModal').style.display='none';
-             // Go back to Payment selection if failed
              document.getElementById('paymentSelectionModal').style.display='block';
         }
 
@@ -852,7 +860,34 @@
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
-        window.trackOrder = (id) => { let tid = id || document.getElementById('trackInput').value; if(!tid) return alert("Enter ID"); window.location.href = `https://wa.me/${myWhatsAppNumber}?text=Track ${tid}`; }
+        // NEW LIVE TRACKING LOGIC
+        window.trackOrder = async (id) => { 
+            let tid = id || document.getElementById('trackInput').value; 
+            if(!tid) return alert("Enter Order ID");
+            
+            let resBox = document.getElementById('trackResultBox');
+            resBox.style.display = 'block';
+            resBox.innerHTML = '<div class="spinner" style="width:20px; height:20px; border-width:2px; border-top-color:#e75480;"></div> Checking...';
+
+            // Query Firebase for exact order ID
+            const q = query(collection(db, "orders"), where("orderId", "==", tid));
+            const snap = await getDocs(q);
+            
+            if(!snap.empty) {
+                let data = snap.docs[0].data();
+                let badgeClass = 'status-pending';
+                if(data.status.toLowerCase().includes('shipped')) badgeClass = 'status-shipped';
+                if(data.status.toLowerCase().includes('delivered')) badgeClass = 'status-delivered';
+
+                resBox.innerHTML = `
+                    <p><strong>Order ID:</strong> ${data.orderId}</p>
+                    <p><strong>Status:</strong> <span class="status-badge ${badgeClass}">${data.status}</span></p>
+                    <p style="font-size:12px; color:#666; margin-top:5px;">Estimated Delivery: 5-7 Days</p>
+                `;
+            } else {
+                resBox.innerHTML = `<p style="color:red;">❌ Order not found. Check ID.</p>`;
+            }
+        }
         window.openTrackModal = () => document.getElementById('trackModal').style.display='block';
     </script>
 </body>
