@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         /* --- CSS STYLES --- */
-        :root{ --p-pink:#ff9a9e; --d-pink:#e75480; --soft-bg:#fffafb; --toast-bg:#333; --gold:#d4af37; --sidebar-w: 280px; --success-green: #2ecc71; }
+        :root{ --p-pink:#ff9a9e; --d-pink:#e75480; --soft-bg:#fffafb; --toast-bg:#333; --gold:#d4af37; --sidebar-w: 280px; --success-green: #2ecc71; --line-grey: #e0e0e0; }
         body{margin:0;font-family:'Poppins',sans-serif;background:var(--soft-bg);color:#333;padding-bottom:50px; overflow-x: hidden; -webkit-tap-highlight-color: transparent;}
         
         /* HEADER */
@@ -103,18 +103,36 @@
         .help-content {text-align: center;}
         .help-msg {font-size: 18px; color: var(--d-pink); font-family: 'Playfair Display'; margin-bottom: 20px;}
 
-        /* --- NEW TRACKING TIMELINE STYLES --- */
+        /* --- ✨ NEW ANIMATED TIMELINE STYLES ✨ --- */
         #trackResultBox { margin-top:20px; display:none; }
-        .timeline-wrapper { position: relative; padding-left: 20px; margin-top: 15px; text-align: left; }
-        .timeline-item { position: relative; padding-bottom: 25px; padding-left: 25px; border-left: 2px solid #eee; }
-        .timeline-item:last-child { border-left: none; }
-        .timeline-item::before { content: ''; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #eee; border: 2px solid white; box-shadow: 0 0 0 2px white; transition: 0.4s; }
+        .timeline-wrapper { position: relative; padding: 10px 0 10px 30px; margin-top: 15px; text-align: left; }
+        
+        /* The Vertical Line */
+        .timeline-item { position: relative; padding-bottom: 30px; border-left: 3px solid var(--line-grey); padding-left: 20px; transition: border-color 0.5s ease; }
+        .timeline-item:last-child { border-left: 3px solid transparent; padding-bottom: 0; }
+        
+        /* The Dots */
+        .timeline-item::before { 
+            content: ''; position: absolute; left: -9px; top: 0; 
+            width: 15px; height: 15px; border-radius: 50%; 
+            background: white; border: 3px solid var(--line-grey); 
+            transition: all 0.4s ease; z-index: 2;
+        }
+        
+        /* Active State (Completed Steps) */
         .timeline-item.active { border-left-color: var(--success-green); }
-        .timeline-item.active::before { background: var(--success-green); box-shadow: 0 0 0 4px #eaffea; }
-        .timeline-item.active .time-title { color: #333; font-weight: 700; }
-        .time-title { font-size: 14px; color: #aaa; font-weight: 500; transition:0.3s; }
-        .time-desc { font-size: 11px; color: #888; display:block; margin-top:2px;}
-        .timeline-item { transition: border-left-color 0.5s ease-in-out; }
+        .timeline-item.active::before { 
+            background: var(--success-green); 
+            border-color: var(--success-green); 
+            box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.2); 
+            transform: scale(1.2);
+        }
+        
+        /* Text Styles */
+        .time-title { font-size: 15px; color: #999; font-weight: 500; transition:0.3s; }
+        .timeline-item.active .time-title { color: #333; font-weight: 700; transform: translateX(5px); }
+        .time-desc { font-size: 11px; color: #aaa; display:block; margin-top:2px; font-weight:normal;}
+        .timeline-item.active .time-desc { color: var(--success-green); }
     </style>
 </head>
 <body>
@@ -501,7 +519,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // 🔥 YOUR NEW FIREBASE CONFIG (Updated)
+        // 🔥 FIREBASE CONFIG (Kept Exactly the Same)
         const firebaseConfig = {
           apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
           authDomain: "preety-pop.firebaseapp.com",
@@ -598,7 +616,7 @@
             
             cartTemp.forEach(i => {
                 let p = parseFloat(i.price);
-                // FIX FOR NaN: Fallback to price if MRP is missing or invalid
+                // FIX FOR NaN
                 let m = (i.mrp && !isNaN(i.mrp)) ? parseFloat(i.mrp) : p;
                 
                 totalSelling += p * i.qty;
@@ -863,7 +881,7 @@
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
-        // NEW ANIMATED TRACKING LOGIC
+        // ✨✨ NEW ANIMATED TRACKING LOGIC (5 Steps + Vertical Line) ✨✨
         window.trackOrder = async (id) => { 
             let tid = id || document.getElementById('trackInput').value; 
             if(!tid) return alert("Enter Order ID");
@@ -879,8 +897,10 @@
                 let data = snap.docs[0].data();
                 let st = data.status.toLowerCase();
 
+                // Define 5 Steps Logic
                 let steps = [
                     { name: 'Ordered', active: true },
+                    { name: 'Order Confirmed', active: st.includes('confirmed') || st.includes('shipped') || st.includes('out') || st.includes('delivered') },
                     { name: 'Shipped', active: st.includes('shipped') || st.includes('out') || st.includes('delivered') },
                     { name: 'Out for Delivery', active: st.includes('out') || st.includes('delivered') },
                     { name: 'Delivered', active: st.includes('delivered') }
@@ -893,7 +913,7 @@
                     html += `
                     <div class="timeline-item ${activeClass}">
                         <span class="time-title">${s.name}</span>
-                        ${s.active ? '<span class="time-desc">Completed</span>' : ''}
+                        ${s.active ? '<span class="time-desc">Done</span>' : ''}
                     </div>`;
                 });
                 
