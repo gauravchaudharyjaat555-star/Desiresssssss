@@ -37,7 +37,6 @@
         .category-scroll {display:flex; overflow-x:auto; gap:12px; padding:10px 20px; margin-bottom:10px; scrollbar-width: none; justify-content: start;}
         .category-scroll::-webkit-scrollbar {display: none;}
         
-        /* Updated Category Buttons Logic */
         .cat-btn {white-space:nowrap; padding: 10px 22px; border: none; background: white; color: #888; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-family: 'Poppins', sans-serif;}
         .cat-btn.active {background: linear-gradient(45deg, #ff9a9e, #e75480); color: white; box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4); transform: scale(1.05);}
         
@@ -217,7 +216,6 @@
                         <button class="btn" onclick="addCart('Metal Claw Clip', 99, 149)">Add to Cart</button>
                     </div>
                 </div>
-                
                 <div class="card">
                     <span class="badge">Steal Deal</span>
                     <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80">
@@ -313,35 +311,8 @@
             <input type="text" class="form-input" id="loginName" placeholder="Full Name">
             <input type="tel" class="form-input" id="loginPhone" placeholder="Mobile Number">
             <input type="email" class="form-input" id="loginEmail" placeholder="Email ID (Optional)">
-            <p style="text-align:left; font-size:12px; margin:10px 0 5px 0;">Date of Birth</p>
-            <input type="date" class="form-input" id="loginDob">
+            <input type="text" class="form-input" id="loginDob" placeholder="Date of Birth" onfocus="(this.type='date')" onblur="(this.value==''?this.type='text':this.type='date')">
             <button class="btn" onclick="performLogin()">Continue ➝</button>
-        </div>
-    </div>
-
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <h2>Order Details 📝</h2>
-            <form id="checkoutForm">
-                <p style="font-size:12px; color:red; display:none;" id="checkoutError">Please fill all profile details!</p>
-                <input type="text" class="form-input" placeholder="Full Name" id="name" readonly style="background:#f0f0f0;">
-                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile" readonly style="background:#f0f0f0;">
-                <input type="email" class="form-input" placeholder="Email (Required)" id="email" readonly style="background:#f0f0f0;">
-                <input type="text" class="form-input" placeholder="DOB (Required)" id="dobDisplay" readonly style="background:#f0f0f0;">
-                
-                <p style="text-align:left;font-weight:600;margin:10px 0 5px 0;">Delivery Address 🏠</p>
-                <input type="text" class="form-input" placeholder="House/Flat No." id="addr1" required>
-                <input type="text" class="form-input" placeholder="Landmark (Optional)" id="landmark">
-                <input type="text" class="form-input" placeholder="City" id="city" required>
-                <div class="half-input-group">
-                    <input type="text" class="form-input" placeholder="District" id="district" required>
-                    <input type="text" class="form-input" placeholder="State" id="state" required>
-                </div>
-                <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
-                
-                <button type="submit" class="btn">Proceed to Pay ➝</button>
-                <button type="button" onclick="document.getElementById('checkoutModal').style.display='none'" style="margin-top:10px;background:none;border:none;cursor:pointer;">Cancel</button>
-            </form>
         </div>
     </div>
 
@@ -356,7 +327,7 @@
                 <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; margin-top:5px; border-top:1px dashed #ccc; padding-top:5px;">
                     <span>To Pay</span> <span id="paySelectTotal">₹0</span>
                 </div>
-                <p style="font-size:10px; color:#888; text-align:right;">(Delivery added at next step)</p>
+                <p style="font-size:10px; color:#888; text-align:right;">(Select Payment & then Add Address)</p>
             </div>
             
             <div class="pay-grid">
@@ -364,22 +335,49 @@
                     <div style="display:flex; justify-content:space-between; width:100%;">
                         <span>🔵 UPI (PhonePe/GPay)</span> <span>➔</span>
                     </div>
-                    <span class="pay-subtext" id="upiFeeText">Check Fee Logic...</span>
+                    <span class="pay-subtext" id="upiFeeText">Checking...</span>
                 </div>
                 <div class="pay-btn" onclick="triggerPayment('COD')">
                     <div style="display:flex; justify-content:space-between; width:100%;">
                         <span>💵 Cash on Delivery</span> <span>➔</span>
                     </div>
-                    <span class="pay-subtext" id="codFeeText">Check Fee Logic...</span>
+                    <span class="pay-subtext" id="codFeeText">Checking...</span>
                 </div>
                 <div class="pay-btn" onclick="triggerPayment('WA')">
                      <div style="display:flex; justify-content:space-between; width:100%;">
                         <span>💬 Order via WhatsApp</span> <span>➔</span>
                      </div>
-                    <span class="pay-subtext" id="waFeeText">Check Fee Logic...</span>
+                    <span class="pay-subtext" id="waFeeText">Checking...</span>
                 </div>
             </div>
             <button class="btn btn-secondary" style="margin-top:20px;" onclick="document.getElementById('paymentSelectionModal').style.display='none'">Back</button>
+        </div>
+    </div>
+
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <h2>Delivery Address 🏠</h2>
+            <form id="checkoutForm">
+                <p style="background:#eaffea; color:green; padding:5px; border-radius:5px; font-size:12px; margin-bottom:10px;">Payment Method Selected ✅</p>
+                
+                <input type="text" class="form-input" placeholder="Full Name" id="name" readonly style="background:#f0f0f0;">
+                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile" readonly style="background:#f0f0f0;">
+                <input type="email" class="form-input" placeholder="Email (Required)" id="email" readonly style="background:#f0f0f0;">
+                <input type="text" class="form-input" placeholder="DOB (Required)" id="dobDisplay" readonly style="background:#f0f0f0;">
+                
+                <p style="text-align:left;font-weight:600;margin:10px 0 5px 0;">Address Details</p>
+                <input type="text" class="form-input" placeholder="House/Flat No." id="addr1" required>
+                <input type="text" class="form-input" placeholder="Landmark (Optional)" id="landmark">
+                <input type="text" class="form-input" placeholder="City" id="city" required>
+                <div class="half-input-group">
+                    <input type="text" class="form-input" placeholder="District" id="district" required>
+                    <input type="text" class="form-input" placeholder="State" id="state" required>
+                </div>
+                <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
+                
+                <button type="submit" class="btn" id="finalPayBtn">Place Order ➝</button>
+                <button type="button" onclick="document.getElementById('checkoutModal').style.display='none'" style="margin-top:10px;background:none;border:none;cursor:pointer;">Cancel</button>
+            </form>
         </div>
     </div>
 
@@ -388,7 +386,7 @@
             <h3 style="color:var(--d-pink); font-size:22px;">Delivery Charge 🚚</h3>
             <p style="color:#555; margin:15px 0;" id="feeConfirmMsg">Extra charge applies.</p>
             <div class="half-input-group" style="margin-top:20px;">
-                <button class="btn" onclick="confirmFeeAndPay()">Accept ✅</button>
+                <button class="btn" onclick="confirmFeeAndProceed()">Accept & Add Address ✅</button>
                 <button class="btn btn-outline" onclick="document.getElementById('feeConfirmModal').style.display='none'">Cancel ❌</button>
             </div>
         </div>
@@ -397,7 +395,7 @@
     <div class="modal" id="processingModal" style="background:rgba(0,0,0,0.85);">
         <div class="modal-content" style="background:transparent; box-shadow:none; color:white;">
             <div class="spinner"></div>
-            <h3>Processing Payment...</h3>
+            <h3>Processing...</h3>
             <p>Please wait while we verify.</p>
         </div>
     </div>
@@ -455,7 +453,7 @@
                 <input id="profName" class="form-input" placeholder="Name">
                 <input id="profMobile" class="form-input" placeholder="Mobile">
                 <input id="profEmail" class="form-input" placeholder="Email">
-                <input type="date" id="profDob" class="form-input" placeholder="DOB">
+                <input type="text" id="profDob" class="form-input" placeholder="Date of Birth" onfocus="(this.type='date')" onblur="(this.value==''?this.type='text':this.type='date')">
                 
                 <label style="font-size:12px; font-weight:bold; color:#888; display:block; margin-top:10px;">Saved Address (Optional)</label>
                 <input id="profAddr1" class="form-input" placeholder="House/Flat No.">
@@ -479,7 +477,7 @@
             <h2>Your Cart 🛍️</h2>
             <table class="cart-table" id="cartItemsTable"></table>
             <div id="cartEmptyMsg" style="display:none; color:#888; margin:20px;">Cart is empty 💔</div>
-            <button class="btn" id="checkoutBtn" onclick="checkLoginAndRedirect('checkout')">Proceed to Checkout</button>
+            <button class="btn" id="checkoutBtn" onclick="checkLoginAndRedirect('payment')">Proceed to Checkout</button>
             <button onclick="closeCartModal()" style="margin-top:10px;background:none;border:none;cursor:pointer;">Continue Shopping</button>
         </div>
     </div>
@@ -509,8 +507,12 @@
         let cart = JSON.parse(localStorage.getItem('cart')||'[]');
         let userProfile = JSON.parse(localStorage.getItem('userProfile'));
         let cartTemp = [], orderData = {};
+        
+        // Globals for Flow
         let selectedMethod = "";
-        let calculatedFee = 0;
+        let finalFee = 0;
+        let finalTotal = 0;
+        let finalMrp = 0;
 
         window.onload = () => { updateCartCount(); if(userProfile) updateMenuUser(); };
 
@@ -549,11 +551,13 @@
         window.removeItem = (i) => { cart.splice(i,1); updateCartCount(); window.openCartModal(); };
         window.closeCartModal = () => document.getElementById('cartModal').style.display='none';
         
+        // CHANGED FLOW: Cart -> Payment -> Address
         window.checkLoginAndRedirect = (action) => {
             if(action==='cart') window.openCartModal();
-            else if(action==='checkout') {
+            else if(action==='payment') {
+                if(!userProfile) { document.getElementById('loginModal').style.display='block'; return; }
                 document.getElementById('cartModal').style.display='none';
-                openCheckout();
+                preparePaymentModal();
             }
         };
         
@@ -569,86 +573,38 @@
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('loginModal').style.display='none'; 
             updateMenuUser();
-            if(cart.length > 0) openCheckout();
+            if(cart.length > 0) preparePaymentModal();
         };
 
-        window.openCheckout = () => {
-            if(!userProfile) { document.getElementById('loginModal').style.display='block'; return; }
+        // 1. Prepare Payment Modal (Fix NaN here)
+        window.preparePaymentModal = () => {
             cartTemp = [...cart];
             if(cartTemp.length===0) return alert("Cart empty");
-            
-            // Update fields
-            document.getElementById('name').value = userProfile.name || '';
-            document.getElementById('mobile').value = userProfile.mobile || '';
-            document.getElementById('email').value = userProfile.email || '';
-            document.getElementById('dobDisplay').value = userProfile.dob || '';
-            
-            // Fill Address if exists
-            if(userProfile.address) {
-                document.getElementById('addr1').value = userProfile.address.addr1 || "";
-                document.getElementById('landmark').value = userProfile.address.landmark || "";
-                document.getElementById('city').value = userProfile.address.city || "";
-                document.getElementById('district').value = userProfile.address.district || "";
-                document.getElementById('state').value = userProfile.address.state || "";
-                document.getElementById('pincode').value = userProfile.address.pincode || "";
-            }
 
-            document.getElementById('checkoutModal').style.display='block';
-        };
-
-        document.getElementById('checkoutForm').onsubmit = (e) => {
-            e.preventDefault();
-            
-            let name = document.getElementById('name').value;
-            let mobile = document.getElementById('mobile').value;
-            let email = document.getElementById('email').value;
-            let dob = document.getElementById('dobDisplay').value;
-
-            if(!name || !mobile || !email || !dob) {
-                alert("Name, Mobile, Email and DOB are mandatory for checkout! Please update profile.");
-                document.getElementById('checkoutModal').style.display='none';
-                showProfile(); 
-                return;
-            }
-
-            // AUTO-SAVE ADDRESS LOGIC (Point 1)
-            let addr = {
-                addr1: document.getElementById('addr1').value,
-                landmark: document.getElementById('landmark').value,
-                city: document.getElementById('city').value,
-                district: document.getElementById('district').value,
-                state: document.getElementById('state').value,
-                pincode: document.getElementById('pincode').value
-            };
-            
-            if(userProfile) {
-                userProfile.address = addr;
-                localStorage.setItem('userProfile', JSON.stringify(userProfile));
-            }
-
-            orderData = {
-                orderId: 'ORD-'+Math.floor(Math.random()*90000),
-                name, mobile, email, dob,
-                fullAddress: `${addr.addr1}, ${addr.landmark}, ${addr.city}, ${addr.district}, ${addr.state} - ${addr.pincode}`,
-                items: cartTemp,
-                timestamp: new Date()
-            };
-            
             let totalSelling = 0;
             let totalMrp = 0;
+            
             cartTemp.forEach(i => {
-                totalSelling += i.price * i.qty;
-                totalMrp += i.mrp * i.qty;
+                let p = parseFloat(i.price);
+                // FIX FOR NaN: Fallback to price if MRP is missing or invalid
+                let m = (i.mrp && !isNaN(i.mrp)) ? parseFloat(i.mrp) : p;
+                
+                totalSelling += p * i.qty;
+                totalMrp += m * i.qty;
             });
+            
             let discount = totalMrp - totalSelling;
+            
+            // Store global for later access
+            finalTotal = totalSelling;
+            finalMrp = totalMrp;
 
             document.getElementById('payMrp').innerText = '₹' + totalMrp;
             document.getElementById('payDiscount').innerText = '-₹' + discount;
             document.getElementById('payItemTotal').innerText = '₹' + totalSelling;
             document.getElementById('paySelectTotal').innerText = '₹' + totalSelling;
-            document.getElementById('paySelectTotal').setAttribute('data-base', totalSelling);
-            document.getElementById('paySelectTotal').setAttribute('data-mrp', totalMrp);
-
+            
+            // Delivery Text Logic
             let upiText = (totalSelling >= 299) ? "Free Delivery! 🎉" : "+ ₹41 Delivery";
             let codText = (totalSelling >= 499) ? "Free Delivery! 🎉" : "+ ₹41 Delivery (Fee)";
             
@@ -668,57 +624,118 @@
                 nudge.style.display = 'none';
             }
 
-            document.getElementById('checkoutModal').style.display='none';
             document.getElementById('paymentSelectionModal').style.display='block';
         };
 
+        // 2. Trigger Payment -> Calculate Fee -> Ask Address
         window.triggerPayment = (method) => {
-            let baseTotal = parseInt(document.getElementById('paySelectTotal').getAttribute('data-base'));
             selectedMethod = method;
             
             if(method === 'UPI') {
-                calculatedFee = (baseTotal >= 299) ? 0 : 41;
+                finalFee = (finalTotal >= 299) ? 0 : 41;
             } else {
-                calculatedFee = (baseTotal >= 499) ? 0 : 41;
+                finalFee = (finalTotal >= 499) ? 0 : 41;
             }
 
-            if(calculatedFee > 0) {
-                document.getElementById('feeConfirmMsg').innerHTML = `Order Value: ₹${baseTotal}<br>Delivery Charge: ₹${calculatedFee}<br><b>Total: ₹${baseTotal + calculatedFee}</b>`;
+            if(finalFee > 0) {
+                document.getElementById('feeConfirmMsg').innerHTML = `Order Value: ₹${finalTotal}<br>Delivery Charge: ₹${finalFee}<br><b>Total: ₹${finalTotal + finalFee}</b>`;
                 document.getElementById('feeConfirmModal').style.display = 'block';
             } else {
-                processPayment(baseTotal, 0, method);
+                confirmFeeAndProceed(); // Go to address directly
             }
         };
 
-        window.confirmFeeAndPay = () => {
+        window.confirmFeeAndProceed = () => {
             document.getElementById('feeConfirmModal').style.display = 'none';
-            let baseTotal = parseInt(document.getElementById('paySelectTotal').getAttribute('data-base'));
-            processPayment(baseTotal, calculatedFee, selectedMethod);
+            document.getElementById('paymentSelectionModal').style.display = 'none';
+            openAddressForm();
         }
 
-        function processPayment(base, fee, method) {
-            let final = base + fee;
-            orderData.totalAmount = final;
-            orderData.paymentMethod = method;
-            orderData.status = 'Pending';
-            orderData.deliveryFee = fee;
-            orderData.mrp = document.getElementById('paySelectTotal').getAttribute('data-mrp');
+        // 3. Address Form
+        window.openAddressForm = () => {
+            // Pre-fill fields
+            document.getElementById('name').value = userProfile.name || '';
+            document.getElementById('mobile').value = userProfile.mobile || '';
+            document.getElementById('email').value = userProfile.email || '';
+            document.getElementById('dobDisplay').value = userProfile.dob || '';
+            
+            if(userProfile.address) {
+                document.getElementById('addr1').value = userProfile.address.addr1 || "";
+                document.getElementById('landmark').value = userProfile.address.landmark || "";
+                document.getElementById('city').value = userProfile.address.city || "";
+                document.getElementById('district').value = userProfile.address.district || "";
+                document.getElementById('state').value = userProfile.address.state || "";
+                document.getElementById('pincode').value = userProfile.address.pincode || "";
+            }
+            
+            // Update button text based on method
+            let grandTotal = finalTotal + finalFee;
+            let btnText = (selectedMethod === 'UPI') ? `Pay ₹${grandTotal} Now ➝` : `Place Order (₹${grandTotal}) ➝`;
+            document.getElementById('finalPayBtn').innerText = btnText;
 
-            if(method === 'UPI') {
-                document.getElementById('paymentSelectionModal').style.display='none';
+            document.getElementById('checkoutModal').style.display='block';
+        };
+
+        // 4. Final Submission
+        document.getElementById('checkoutForm').onsubmit = (e) => {
+            e.preventDefault();
+            
+            let name = document.getElementById('name').value;
+            let mobile = document.getElementById('mobile').value;
+            let email = document.getElementById('email').value;
+            let dob = document.getElementById('dobDisplay').value;
+
+            if(!name || !mobile || !email || !dob) {
+                alert("Please fill all profile details!");
+                return;
+            }
+
+            // Save Address
+            let addr = {
+                addr1: document.getElementById('addr1').value,
+                landmark: document.getElementById('landmark').value,
+                city: document.getElementById('city').value,
+                district: document.getElementById('district').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value
+            };
+            
+            userProfile.address = addr;
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+
+            // Create Order Data
+            let grandTotal = finalTotal + finalFee;
+            orderData = {
+                orderId: 'ORD-'+Math.floor(Math.random()*90000),
+                name, mobile, email, dob,
+                fullAddress: `${addr.addr1}, ${addr.landmark}, ${addr.city}, ${addr.district}, ${addr.state} - ${addr.pincode}`,
+                items: cartTemp,
+                totalAmount: grandTotal,
+                paymentMethod: selectedMethod,
+                deliveryFee: finalFee,
+                mrp: finalMrp,
+                status: 'Pending',
+                timestamp: new Date()
+            };
+
+            document.getElementById('checkoutModal').style.display='none';
+            executePaymentLogic();
+        };
+
+        function executePaymentLogic() {
+            if(selectedMethod === 'UPI') {
                 document.getElementById('processingModal').style.display='block';
-                window.location.href = `upi://pay?pa=${myUpiId}&pn=PreetyPop&am=${final}&cu=INR`;
+                window.location.href = `upi://pay?pa=${myUpiId}&pn=PreetyPop&am=${orderData.totalAmount}&cu=INR`;
                 setTimeout(() => {
                     document.getElementById('processingModal').style.display='none';
                     document.getElementById('paymentVerifyModal').style.display='block';
                 }, 3000);
             } else {
-                document.getElementById('paymentSelectionModal').style.display='none';
                 document.getElementById('processingModal').style.display='block';
                 setTimeout(async () => {
-                    await finishOrder(method);
-                    if(method === 'WA') {
-                        window.open(`https://wa.me/${myWhatsAppNumber}?text=Order ${orderData.orderId} placed for ₹${final}`, '_blank');
+                    await finishOrder(selectedMethod);
+                    if(selectedMethod === 'WA') {
+                        window.open(`https://wa.me/${myWhatsAppNumber}?text=Order ${orderData.orderId} placed for ₹${orderData.totalAmount}`, '_blank');
                     }
                 }, 2000);
             }
@@ -731,6 +748,7 @@
         
         window.handlePaymentNo = () => {
              document.getElementById('paymentVerifyModal').style.display='none';
+             // Go back to Payment selection if failed
              document.getElementById('paymentSelectionModal').style.display='block';
         }
 
@@ -828,13 +846,9 @@
         function updateMenuUser(){ document.getElementById('menuUserMsg').innerText = "Hi, " + (userProfile.name || 'Guest'); }
         function showToast(m){ const t=document.getElementById('toast'); t.innerText=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
         
-        // UPDATED CATEGORY FILTER LOGIC (Point 2)
         window.filterCategory = (cat, btnElement) => { 
-            // Highlight Button
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
-
-            // Filter Sections
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
