@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         /* --- CSS STYLES --- */
-        :root{ --p-pink:#ff9a9e; --d-pink:#e75480; --soft-bg:#fffafb; --toast-bg:#333; --gold:#d4af37; --sidebar-w: 280px; }
+        :root{ --p-pink:#ff9a9e; --d-pink:#e75480; --soft-bg:#fffafb; --toast-bg:#333; --gold:#d4af37; --sidebar-w: 280px; --success-green: #2ecc71; }
         body{margin:0;font-family:'Poppins',sans-serif;background:var(--soft-bg);color:#333;padding-bottom:50px; overflow-x: hidden; -webkit-tap-highlight-color: transparent;}
         
         /* HEADER */
@@ -99,21 +99,30 @@
         .spinner {width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; margin: 0 auto 20px auto;}
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .social-btn-styled {display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); color:white; border:none; cursor: pointer;}
-        .insta-style { background: linear-gradient(to right, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .wa-style { background: #25d366; }
-        .yt-style { background: linear-gradient(to right, #ff0000, #ff5252); }
-        
         /* HELP MODAL */
         .help-content {text-align: center;}
         .help-msg {font-size: 18px; color: var(--d-pink); font-family: 'Playfair Display'; margin-bottom: 20px;}
 
-        /* TRACKING RESULT BOX */
-        #trackResultBox { margin-top:15px; padding:15px; background:#f9f9f9; border-radius:10px; border:1px solid #eee; display:none; }
-        .status-badge { padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; background: #ddd; color: #333; }
-        .status-pending { background: #fff3cd; color: #856404; }
-        .status-shipped { background: #d1ecf1; color: #0c5460; }
-        .status-delivered { background: #d4edda; color: #155724; }
+        /* --- NEW TRACKING TIMELINE STYLES --- */
+        #trackResultBox { margin-top:20px; display:none; }
+        .timeline-wrapper { position: relative; padding-left: 20px; margin-top: 15px; text-align: left; }
+        .timeline-item { position: relative; padding-bottom: 25px; padding-left: 25px; border-left: 2px solid #eee; }
+        .timeline-item:last-child { border-left: none; }
+        
+        /* The Dot */
+        .timeline-item::before { content: ''; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #eee; border: 2px solid white; box-shadow: 0 0 0 2px white; transition: 0.4s; }
+        
+        /* Active State (Completed Steps) */
+        .timeline-item.active { border-left-color: var(--success-green); }
+        .timeline-item.active::before { background: var(--success-green); box-shadow: 0 0 0 4px #eaffea; }
+        .timeline-item.active .time-title { color: #333; font-weight: 700; }
+        
+        /* Text Styles */
+        .time-title { font-size: 14px; color: #aaa; font-weight: 500; transition:0.3s; }
+        .time-desc { font-size: 11px; color: #888; display:block; margin-top:2px;}
+
+        /* Animation for the line */
+        .timeline-item { transition: border-left-color 0.5s ease-in-out; }
     </style>
 </head>
 <body>
@@ -133,12 +142,6 @@
             <a onclick="closeSidebar(); openTrackModal()" class="menu-item">🚚 Track Order</a>
             <div style="border-top:1px dashed #ffd1dc; margin:10px 0;"></div>
             <a onclick="closeSidebar(); document.getElementById('supportModal').style.display='block'" class="menu-item" style="color:var(--d-pink); font-weight:700;">🤝 Help & Support</a>
-            
-            <div style="margin-top:20px; padding:20px; text-align:center;">
-                <span style="font-size:14px; color:#888; display:block; margin-bottom:10px;">✨ Follow Our Journey ✨</span>
-                <a href="https://www.instagram.com/preety_pop_desires?igsh=MTI5N3hxbHd3bmVoaA==" target="_blank" class="social-btn-styled insta-style">📸 Instagram</a>
-                <a href="https://youtube.com/@preetypopdesires?si=a9olNojwQk8ZHl8a" target="_blank" class="social-btn-styled yt-style">📺 YouTube</a>
-            </div>
         </div>
     </div>
 
@@ -364,7 +367,7 @@
     <div class="modal" id="checkoutModal">
         <div class="modal-content">
             <h2>Delivery Address 🏠</h2>
-            <form id="checkoutForm">
+            <div id="checkoutForm">
                 <p style="background:#eaffea; color:green; padding:5px; border-radius:5px; font-size:12px; margin-bottom:10px;">Payment Method Selected ✅</p>
                 
                 <input type="text" class="form-input" placeholder="Full Name" id="name" readonly style="background:#f0f0f0;">
@@ -382,9 +385,9 @@
                 </div>
                 <input type="text" class="form-input" placeholder="Pincode" id="pincode" required>
                 
-                <button type="submit" class="btn" id="finalPayBtn">Place Order ➝</button>
+                <button type="button" class="btn" id="finalPayBtn" onclick="validateAndPlaceOrder()">Place Order ➝</button>
                 <button type="button" onclick="document.getElementById('checkoutModal').style.display='none'" style="margin-top:10px;background:none;border:none;cursor:pointer;">Cancel</button>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -403,7 +406,7 @@
         <div class="modal-content" style="background:transparent; box-shadow:none; color:white;">
             <div class="spinner"></div>
             <h3>Processing...</h3>
-            <p>Please wait while we verify.</p>
+            <p>Don't press back.</p>
         </div>
     </div>
 
@@ -496,10 +499,7 @@
             <button class="btn" onclick="trackOrder()">Track Now</button>
             
             <div id="trackResultBox">
-                <p><strong>Order ID:</strong> <span id="trId"></span></p>
-                <p><strong>Status:</strong> <span id="trStatus"></span></p>
-                <p style="font-size:12px; color:#666; margin-top:5px;">Estimated Delivery: 5-7 Days</p>
-            </div>
+                </div>
 
             <button class="btn btn-secondary" onclick="document.getElementById('trackModal').style.display='none'">Close</button>
         </div>
@@ -685,9 +685,8 @@
             document.getElementById('checkoutModal').style.display='block';
         };
 
-        document.getElementById('checkoutForm').onsubmit = (e) => {
-            e.preventDefault();
-            
+        // FIXED: Renamed to validateAndPlaceOrder to act as manual submit
+        window.validateAndPlaceOrder = () => {
             let name = document.getElementById('name').value;
             let mobile = document.getElementById('mobile').value;
             let email = document.getElementById('email').value;
@@ -698,19 +697,26 @@
                 return;
             }
 
+            let addr1 = document.getElementById('addr1').value;
+            let city = document.getElementById('city').value;
+            let district = document.getElementById('district').value;
+            let state = document.getElementById('state').value;
+            let pincode = document.getElementById('pincode').value;
+
+            if(!addr1 || !city || !district || !state || !pincode) {
+                alert("Please fill all address details!");
+                return;
+            }
+
             let addr = {
-                addr1: document.getElementById('addr1').value,
+                addr1,
                 landmark: document.getElementById('landmark').value,
-                city: document.getElementById('city').value,
-                district: document.getElementById('district').value,
-                state: document.getElementById('state').value,
-                pincode: document.getElementById('pincode').value
+                city, district, state, pincode
             };
             
             userProfile.address = addr;
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-            // NEW ORDER ID LOGIC (PP-81 + 5 Digits)
             let uniqueId = 'PP-81' + Math.floor(10000 + Math.random() * 90000);
 
             let grandTotal = finalTotal + finalFee;
@@ -723,7 +729,7 @@
                 paymentMethod: selectedMethod,
                 deliveryFee: finalFee,
                 mrp: finalMrp,
-                status: 'Pending',
+                status: 'Ordered', // Initial Status
                 timestamp: new Date()
             };
 
@@ -782,9 +788,13 @@
 
                 document.getElementById('orderSuccessModal').style.display='block';
                 cart=[]; updateCartCount();
-            } catch(e) { alert("Error saving order: " + e.message); }
+            } catch(e) { 
+                alert("Error saving order! Check Internet or Firebase Rules. Error: " + e.message); 
+                console.error(e);
+            }
         }
 
+        // FIXED: Track Button inside My Orders now works
         window.showMyOrders = async () => {
             if(!userProfile) return alert("Login first");
             const c = document.getElementById('ordersContainer'); c.innerHTML="Loading...";
@@ -860,7 +870,7 @@
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
-        // NEW LIVE TRACKING LOGIC
+        // NEW ANIMATED TRACKING LOGIC
         window.trackOrder = async (id) => { 
             let tid = id || document.getElementById('trackInput').value; 
             if(!tid) return alert("Enter Order ID");
@@ -869,21 +879,34 @@
             resBox.style.display = 'block';
             resBox.innerHTML = '<div class="spinner" style="width:20px; height:20px; border-width:2px; border-top-color:#e75480;"></div> Checking...';
 
-            // Query Firebase for exact order ID
             const q = query(collection(db, "orders"), where("orderId", "==", tid));
             const snap = await getDocs(q);
             
             if(!snap.empty) {
                 let data = snap.docs[0].data();
-                let badgeClass = 'status-pending';
-                if(data.status.toLowerCase().includes('shipped')) badgeClass = 'status-shipped';
-                if(data.status.toLowerCase().includes('delivered')) badgeClass = 'status-delivered';
+                let st = data.status.toLowerCase();
 
-                resBox.innerHTML = `
-                    <p><strong>Order ID:</strong> ${data.orderId}</p>
-                    <p><strong>Status:</strong> <span class="status-badge ${badgeClass}">${data.status}</span></p>
-                    <p style="font-size:12px; color:#666; margin-top:5px;">Estimated Delivery: 5-7 Days</p>
-                `;
+                // Define Steps
+                let steps = [
+                    { name: 'Ordered', active: true },
+                    { name: 'Shipped', active: st.includes('shipped') || st.includes('out') || st.includes('delivered') },
+                    { name: 'Out for Delivery', active: st.includes('out') || st.includes('delivered') },
+                    { name: 'Delivered', active: st.includes('delivered') }
+                ];
+
+                let html = `<h3 style="margin:0 0 10px 0; color:var(--d-pink);">${data.orderId}</h3><div class="timeline-wrapper">`;
+                
+                steps.forEach(s => {
+                    let activeClass = s.active ? 'active' : '';
+                    html += `
+                    <div class="timeline-item ${activeClass}">
+                        <span class="time-title">${s.name}</span>
+                        ${s.active ? '<span class="time-desc">Completed</span>' : ''}
+                    </div>`;
+                });
+                
+                html += `</div>`;
+                resBox.innerHTML = html;
             } else {
                 resBox.innerHTML = `<p style="color:red;">❌ Order not found. Check ID.</p>`;
             }
