@@ -87,12 +87,12 @@
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;overflow-y:auto;backdrop-filter: blur(5px);}
         .modal-content{background:white;width:90%;max-width:500px;margin:10% auto;padding:30px;border-radius:30px;text-align:center;box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 2px solid #fff0f5;}
         
-        /* HELP MODAL BUTTONS (New) */
-        .help-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 16px; color: white; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* HELP MODAL BUTTONS (Updated - Small & Cute) */
+        .help-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 85%; margin: 0 auto 10px auto; padding: 10px; border-radius: 30px; text-decoration: none; font-weight: 500; font-size: 14px; transition: 0.2s; border: 1px solid transparent; }
         .help-btn:hover { transform: translateY(-2px); }
-        .h-wa { background: #25d366; }
-        .h-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .h-email { background: #333; }
+        .h-wa { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
+        .h-insta { background: #fff0f5; color: #c2185b; border-color: #f8bbd0; }
+        .h-email { background: #f5f5f5; color: #555; border-color: #eee; }
 
         /* CART TABLE */
         .cart-table {width:100%; border-collapse: separate; border-spacing: 0 15px;}
@@ -181,7 +181,7 @@
             <div class="journey-title">Follow our Journey ✨</div>
             <div class="social-row">
                 <a href="https://www.instagram.com/preety_pop_desires" target="_blank" class="social-btn sb-insta">📸</a>
-                <a href="#" target="_blank" class="social-btn sb-yt">▶️</a>
+                <a href="https://youtube.com/@preetypopdesires?si=BKRfNyLaQt-N3jNO" target="_blank" class="social-btn sb-yt">▶️</a>
             </div>
         </div>
     </div>
@@ -192,16 +192,16 @@
             <h2 class="help-msg">We are here for you!</h2>
             
             <a href="https://wa.me/918679289327" class="help-btn h-wa">
-                <span>💬</span> Chat on WhatsApp
+                <span>💬</span> WhatsApp
             </a>
             <a href="https://www.instagram.com/preety_pop_desires" class="help-btn h-insta">
-                <span>📸</span> DM on Instagram
+                <span>📸</span> Instagram
             </a>
             <a href="mailto:support@preetypop.com" class="help-btn h-email">
-                <span>✉️</span> Send an Email
+                <span>✉️</span> Email Us
             </a>
 
-            <button class="btn btn-secondary" onclick="document.getElementById('supportModal').style.display='none'">Close</button>
+            <button class="btn btn-secondary" style="width:50%; margin-top:15px; padding:8px;" onclick="document.getElementById('supportModal').style.display='none'">Close</button>
         </div>
     </div>
 
@@ -635,21 +635,20 @@
             }
         };
         
-        // --- UPDATED: Login (Optional Fields) ---
+        // Login Logic
         window.performLogin = () => {
             let n = document.getElementById('loginName').value;
             let m = document.getElementById('loginPhone').value;
             let e = document.getElementById('loginEmail').value;
             let d = document.getElementById('loginDob').value;
             
-            // Allow even if empty (Guest mode) or if user wants to skip
             let finalName = n ? n : "Guest";
             
             userProfile = {name:finalName, mobile:m, email:e, dob:d, address: {}}; 
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('loginModal').style.display='none'; 
             updateMenuUser();
-            showToast("Welcome " + finalName + "! 🌸"); // Nice Toast instead of Alert
+            showToast("Welcome " + finalName + "! 🌸");
             if(cart.length > 0) preparePaymentModal();
         };
 
@@ -749,24 +748,18 @@
             let email = document.getElementById('email').value;
             let dob = document.getElementById('dobDisplay').value;
 
-            // Updated Validation: Basic check
-            if(!name || !mobile || !email || !addr1 || !city || !pincode) {
-                // If address fields are empty
-                let addr1 = document.getElementById('addr1').value;
-                let city = document.getElementById('city').value;
-                let pincode = document.getElementById('pincode').value;
-                
-                if(!addr1 || !city || !pincode || !name || !mobile) {
-                   alert("Please fill Address & Contact details!");
-                   return;
-                }
-            }
-
+            // Updated Validation Logic: NO ALERT, ONLY TOAST
             let addr1 = document.getElementById('addr1').value;
             let city = document.getElementById('city').value;
+            let pincode = document.getElementById('pincode').value;
+            
+            if(!name || !mobile || !email || !addr1 || !city || !pincode) {
+                showToast("⚠️ Please fill all details properly!"); // Nice Toast Message
+                return;
+            }
+
             let district = document.getElementById('district').value;
             let state = document.getElementById('state').value;
-            let pincode = document.getElementById('pincode').value;
 
             let addr = {
                 addr1,
@@ -793,7 +786,7 @@
                 paymentMethod: selectedMethod,
                 deliveryFee: finalFee,
                 mrp: finalMrp,
-                status: 'Ordered', // Initial Status
+                status: 'Ordered',
                 timestamp: new Date()
             };
 
@@ -853,7 +846,7 @@
                 document.getElementById('orderSuccessModal').style.display='block';
                 cart=[]; updateCartCount();
             } catch(e) { 
-                alert("Error saving order! Check Internet or Firebase Rules. Error: " + e.message); 
+                showToast("Error saving order. Check Internet."); 
                 console.error(e);
             }
         }
@@ -886,7 +879,6 @@
         };
 
         window.showProfile = () => { 
-            // Allow opening profile even if incomplete
             document.getElementById('profName').value = userProfile?.name || '';
             document.getElementById('profMobile').value = userProfile?.mobile || '';
             document.getElementById('profEmail').value = userProfile?.email || ''; 
@@ -935,7 +927,7 @@
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
-        // TRACKING LOGIC (Same as before)
+        // TRACKING LOGIC
         window.trackOrder = async (id) => { 
             let tid = id || document.getElementById('trackInput').value; 
             if(!tid) return alert("Enter Order ID");
