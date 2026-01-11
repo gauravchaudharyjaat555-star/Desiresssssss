@@ -14,7 +14,14 @@
         header{background:white;padding:15px 20px;display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 20px rgba(0,0,0,0.03);position:sticky;top:0;z-index:900;}
         .nav-left {display:flex; align-items:center; gap:15px;}
         .menu-btn {font-size:24px; cursor:pointer; color:#333; background: #fff0f5; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--d-pink);}
-        header h1{font-family:'Playfair Display';font-size:22px;color:var(--d-pink);margin:0;}
+        
+        /* LOGO STYLES */
+        .brand-logo-container { display: flex; align-items: baseline; gap: 4px; }
+        .logo-text-preety { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--d-pink); font-weight: 700; letter-spacing: -1px; }
+        .logo-text-pop { font-family: 'Poppins', sans-serif; font-size: 22px; color: #d4af37; font-weight: 800; text-transform: uppercase; }
+        .logo-icon { font-size: 20px; color: #d4af37; margin-left: 2px; animation: sparkle 2s infinite alternate; }
+        @keyframes sparkle { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 1; transform: scale(1.2); } }
+
         .cart-icon{background: linear-gradient(45deg, #ff9a9e, #e75480); color:white;padding:8px 15px;border-radius:20px;font-size:14px;cursor:pointer; font-weight:600; box-shadow: 0 4px 10px rgba(231, 84, 128, 0.3);}
         
         /* SIDEBAR */
@@ -27,6 +34,15 @@
         .menu-item {padding:12px 15px; margin-bottom: 5px; border-radius: 12px; color:#555; text-decoration:none; font-weight:500; font-size:15px; display:flex; align-items:center; gap:15px; transition:0.2s; cursor: pointer;}
         .menu-item:hover {background:#fff0f5; color:var(--d-pink); transform: translateX(5px);}
         
+        /* SIDEBAR FOOTER (Follow Journey) */
+        .sidebar-footer { padding: 20px; text-align: center; background: #fffafb; border-top: 1px dashed #ffd1dc; border-bottom-right-radius: 20px; }
+        .journey-title { font-size: 12px; color: #888; margin-bottom: 10px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+        .social-row { display: flex; justify-content: center; gap: 15px; }
+        .social-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .sb-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color: white; }
+        .sb-yt { background: #FF0000; color: white; }
+        .social-btn:active { transform: scale(0.9); }
+
         /* HERO & LAYOUT */
         .hero{background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');background-size:cover;background-position:center;color:white;text-align:center;padding:80px 20px;margin-bottom:20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
         .hero h2{font-family:'Playfair Display';font-size:36px;margin:0 0 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);}
@@ -71,6 +87,13 @@
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;overflow-y:auto;backdrop-filter: blur(5px);}
         .modal-content{background:white;width:90%;max-width:500px;margin:10% auto;padding:30px;border-radius:30px;text-align:center;box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 2px solid #fff0f5;}
         
+        /* HELP MODAL BUTTONS (New) */
+        .help-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 16px; color: white; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .help-btn:hover { transform: translateY(-2px); }
+        .h-wa { background: #25d366; }
+        .h-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .h-email { background: #333; }
+
         /* CART TABLE */
         .cart-table {width:100%; border-collapse: separate; border-spacing: 0 15px;}
         .cart-table td {vertical-align: middle; padding:10px; background:white; border-bottom:1px solid #eee;}
@@ -103,7 +126,7 @@
         .help-content {text-align: center;}
         .help-msg {font-size: 18px; color: var(--d-pink); font-family: 'Playfair Display'; margin-bottom: 20px;}
 
-        /* --- ✨ NEW ANIMATED TIMELINE STYLES ✨ --- */
+        /* --- ANIMATED TRACKING TIMELINE STYLES --- */
         #trackResultBox { margin-top:20px; display:none; }
         .timeline-wrapper { position: relative; padding: 10px 0 10px 30px; margin-top: 15px; text-align: left; }
         
@@ -153,15 +176,31 @@
             <div style="border-top:1px dashed #ffd1dc; margin:10px 0;"></div>
             <a onclick="closeSidebar(); document.getElementById('supportModal').style.display='block'" class="menu-item" style="color:var(--d-pink); font-weight:700;">🤝 Help & Support</a>
         </div>
+        
+        <div class="sidebar-footer">
+            <div class="journey-title">Follow our Journey ✨</div>
+            <div class="social-row">
+                <a href="https://www.instagram.com/preety_pop_desires" target="_blank" class="social-btn sb-insta">📸</a>
+                <a href="#" target="_blank" class="social-btn sb-yt">▶️</a>
+            </div>
+        </div>
     </div>
 
     <div class="modal" id="supportModal">
         <div class="modal-content help-content">
             <div style="font-size:40px; margin-bottom:10px;">💖</div>
-            <h2 class="help-msg">We are always here for you!</h2>
-            <p style="color:#666; margin-bottom:20px;">Need assistance with an order or just want to say hi? Reach out to us.</p>
-            <a href="https://wa.me/918679289327" class="social-btn-styled wa-style">Chat on WhatsApp 💬</a>
-            <a href="https://www.instagram.com/preety_pop_desires" class="social-btn-styled insta-style">Message on Instagram 📸</a>
+            <h2 class="help-msg">We are here for you!</h2>
+            
+            <a href="https://wa.me/918679289327" class="help-btn h-wa">
+                <span>💬</span> Chat on WhatsApp
+            </a>
+            <a href="https://www.instagram.com/preety_pop_desires" class="help-btn h-insta">
+                <span>📸</span> DM on Instagram
+            </a>
+            <a href="mailto:support@preetypop.com" class="help-btn h-email">
+                <span>✉️</span> Send an Email
+            </a>
+
             <button class="btn btn-secondary" onclick="document.getElementById('supportModal').style.display='none'">Close</button>
         </div>
     </div>
@@ -169,7 +208,11 @@
     <header>
         <div class="nav-left">
             <div class="menu-btn" onclick="openSidebar()">☰</div>
-            <h1>Preety Pop</h1>
+            <div class="brand-logo-container">
+                <span class="logo-text-preety">Preety</span>
+                <span class="logo-text-pop">Pop</span>
+                <span class="logo-icon">✨</span>
+            </div>
         </div>
         <div class="cart-icon" onclick="openCartModal()">🛒 <span id="cCount">0</span></div>
     </header>
@@ -327,7 +370,7 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h2>Welcome! 👋</h2>
-            <p>Enter details to continue.</p>
+            <p>Fill details for a better experience (Optional)</p>
             <input type="text" class="form-input" id="loginName" placeholder="Full Name">
             <input type="tel" class="form-input" id="loginPhone" placeholder="Mobile Number">
             <input type="email" class="form-input" id="loginEmail" placeholder="Email ID (Optional)">
@@ -380,10 +423,11 @@
             <div id="checkoutForm">
                 <p style="background:#eaffea; color:green; padding:5px; border-radius:5px; font-size:12px; margin-bottom:10px;">Payment Method Selected ✅</p>
                 
-                <input type="text" class="form-input" placeholder="Full Name" id="name" readonly style="background:#f0f0f0;">
-                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile" readonly style="background:#f0f0f0;">
-                <input type="email" class="form-input" placeholder="Email (Required)" id="email" readonly style="background:#f0f0f0;">
-                <input type="text" class="form-input" placeholder="DOB (Required)" id="dobDisplay" readonly style="background:#f0f0f0;">
+                <p style="text-align:left;font-weight:600;margin:10px 0 5px 0;">Contact Details</p>
+                <input type="text" class="form-input" placeholder="Full Name" id="name">
+                <input type="tel" class="form-input" placeholder="Mobile Number" id="mobile">
+                <input type="email" class="form-input" placeholder="Email (Required)" id="email">
+                <input type="text" class="form-input" placeholder="DOB (Required)" id="dobDisplay" onfocus="(this.type='date')" onblur="(this.value==''?this.type='text':this.type='date')">
                 
                 <p style="text-align:left;font-weight:600;margin:10px 0 5px 0;">Address Details</p>
                 <input type="text" class="form-input" placeholder="House/Flat No." id="addr1" required>
@@ -422,7 +466,7 @@
 
     <div class="modal" id="paymentVerifyModal">
         <div class="modal-content">
-            <h3 style="color:#f44336;"> Confirmation Needed</h3>
+            <h3 style="color:#f44336;">⚠️ Confirmation Needed</h3>
             <p>Did you complete the UPI payment?</p>
             <div class="half-input-group">
                 <button class="btn" onclick="handlePaymentYes()">Yes, Paid ✅</button>
@@ -519,7 +563,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // 🔥 FIREBASE CONFIG (Kept Exactly the Same)
+        // 🔥 FIREBASE CONFIG (No Changes)
         const firebaseConfig = {
           apiKey: "AIzaSyDGcSD2p2HpBk3R4cbDRbV1Z6WFrNorE0s",
           authDomain: "preety-pop.firebaseapp.com",
@@ -540,7 +584,6 @@
         let userProfile = JSON.parse(localStorage.getItem('userProfile'));
         let cartTemp = [], orderData = {};
         
-        // Globals for Flow
         let selectedMethod = "";
         let finalFee = 0;
         let finalTotal = 0;
@@ -592,18 +635,21 @@
             }
         };
         
+        // --- UPDATED: Login (Optional Fields) ---
         window.performLogin = () => {
             let n = document.getElementById('loginName').value;
             let m = document.getElementById('loginPhone').value;
             let e = document.getElementById('loginEmail').value;
             let d = document.getElementById('loginDob').value;
             
-            if(!n || !m) return alert("Name and Mobile are required.");
+            // Allow even if empty (Guest mode) or if user wants to skip
+            let finalName = n ? n : "Guest";
             
-            userProfile = {name:n, mobile:m, email:e, dob:d, address: {}}; 
+            userProfile = {name:finalName, mobile:m, email:e, dob:d, address: {}}; 
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('loginModal').style.display='none'; 
             updateMenuUser();
+            showToast("Welcome " + finalName + "! 🌸"); // Nice Toast instead of Alert
             if(cart.length > 0) preparePaymentModal();
         };
 
@@ -616,7 +662,6 @@
             
             cartTemp.forEach(i => {
                 let p = parseFloat(i.price);
-                // FIX FOR NaN
                 let m = (i.mrp && !isNaN(i.mrp)) ? parseFloat(i.mrp) : p;
                 
                 totalSelling += p * i.qty;
@@ -704,9 +749,17 @@
             let email = document.getElementById('email').value;
             let dob = document.getElementById('dobDisplay').value;
 
-            if(!name || !mobile || !email || !dob) {
-                alert("Please fill all profile details!");
-                return;
+            // Updated Validation: Basic check
+            if(!name || !mobile || !email || !addr1 || !city || !pincode) {
+                // If address fields are empty
+                let addr1 = document.getElementById('addr1').value;
+                let city = document.getElementById('city').value;
+                let pincode = document.getElementById('pincode').value;
+                
+                if(!addr1 || !city || !pincode || !name || !mobile) {
+                   alert("Please fill Address & Contact details!");
+                   return;
+                }
             }
 
             let addr1 = document.getElementById('addr1').value;
@@ -715,17 +768,16 @@
             let state = document.getElementById('state').value;
             let pincode = document.getElementById('pincode').value;
 
-            if(!addr1 || !city || !district || !state || !pincode) {
-                alert("Please fill all address details!");
-                return;
-            }
-
             let addr = {
                 addr1,
                 landmark: document.getElementById('landmark').value,
                 city, district, state, pincode
             };
             
+            userProfile.name = name;
+            userProfile.mobile = mobile;
+            userProfile.email = email;
+            userProfile.dob = dob;
             userProfile.address = addr;
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
@@ -834,13 +886,13 @@
         };
 
         window.showProfile = () => { 
-            if(!userProfile) { document.getElementById('loginModal').style.display='block'; return; }
-            document.getElementById('profName').value = userProfile.name || '';
-            document.getElementById('profMobile').value = userProfile.mobile || '';
-            document.getElementById('profEmail').value = userProfile.email || ''; 
-            document.getElementById('profDob').value = userProfile.dob || '';
+            // Allow opening profile even if incomplete
+            document.getElementById('profName').value = userProfile?.name || '';
+            document.getElementById('profMobile').value = userProfile?.mobile || '';
+            document.getElementById('profEmail').value = userProfile?.email || ''; 
+            document.getElementById('profDob').value = userProfile?.dob || '';
             
-            if(userProfile.address) {
+            if(userProfile?.address) {
                 document.getElementById('profAddr1').value = userProfile.address.addr1 || "";
                 document.getElementById('profLandmark').value = userProfile.address.landmark || "";
                 document.getElementById('profCity').value = userProfile.address.city || "";
@@ -852,6 +904,7 @@
         };
 
         window.saveProfileDetails = () => {
+            if(!userProfile) userProfile = {};
             userProfile.name = document.getElementById('profName').value;
             userProfile.mobile = document.getElementById('profMobile').value;
             userProfile.email = document.getElementById('profEmail').value;
@@ -869,10 +922,11 @@
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
             document.getElementById('profileModal').style.display='none';
             showToast("Profile Saved!");
+            updateMenuUser();
         }
 
         function updateCartCount(){ document.getElementById('cCount').innerText = cart.length; localStorage.setItem('cart', JSON.stringify(cart)); }
-        function updateMenuUser(){ document.getElementById('menuUserMsg').innerText = "Hi, " + (userProfile.name || 'Guest'); }
+        function updateMenuUser(){ document.getElementById('menuUserMsg').innerText = "Hi, " + (userProfile?.name || 'Guest'); }
         function showToast(m){ const t=document.getElementById('toast'); t.innerText=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
         
         window.filterCategory = (cat, btnElement) => { 
@@ -881,7 +935,7 @@
             document.querySelectorAll('.prod-section').forEach(el => el.style.display = (cat==='all' || el.id===`sec-${cat}`) ? 'block' : 'none'); 
         };
         
-        // ✨✨ NEW ANIMATED TRACKING LOGIC (5 Steps + Vertical Line) ✨✨
+        // TRACKING LOGIC (Same as before)
         window.trackOrder = async (id) => { 
             let tid = id || document.getElementById('trackInput').value; 
             if(!tid) return alert("Enter Order ID");
@@ -897,7 +951,6 @@
                 let data = snap.docs[0].data();
                 let st = data.status.toLowerCase();
 
-                // Define 5 Steps Logic
                 let steps = [
                     { name: 'Ordered', active: true },
                     { name: 'Order Confirmed', active: st.includes('confirmed') || st.includes('shipped') || st.includes('out') || st.includes('delivered') },
